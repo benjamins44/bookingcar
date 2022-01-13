@@ -1,0 +1,9 @@
+settings
+bin
+.classpath
+target
+.idea
+*.iml
+.project
+FeaturesReport
+
