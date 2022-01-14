@@ -1,0 +1,164 @@
+@startuml
+
+interface bco.bookingcar.domain.BookingCar {
+	{method}  {abstract} +book ( paramBookingCarAttempt1 : bco.bookingcar.domain.booking.BookingCarAttempt ) : bco.bookingcar.domain.booking.BookedCar
+	{method}  {abstract} +search ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias ) : java.util.List
+}
+
+
+class bco.bookingcar.domain.booking.AvailableCar {
+	{field} -idCar : java.util.UUID
+	{method}  {static} +builder () : bco.bookingcar.domain.booking.AvailableCar$AvailableCarBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withIdCar ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.AvailableCar
+	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.AvailableCar
+}
+
+
+class bco.bookingcar.domain.booking.BcoBookingCar {
+	{method} +book ( paramBookingCarAttempt1 : bco.bookingcar.domain.booking.BookingCarAttempt ) : bco.bookingcar.domain.booking.BookedCar
+	{method} -carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
+	{method} -carIsNotBookedIn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
+	{method}  {static} -lambda$carIsNotBookedIn$2 ( paramCar1 : bco.bookingcar.domain.car.Car , paramUUID2 : java.util.UUID ) : boolean
+	{method} -lambda$search$0 ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias , paramCar2 : bco.bookingcar.domain.car.Car ) : boolean
+	{method}  {static} -lambda$search$1 ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias , paramCar2 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.booking.AvailableCar
+	{method} +search ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias ) : java.util.List
+}
+
+
+class bco.bookingcar.domain.booking.BookedCar {
+	{field} -id : java.util.UUID
+	{field} -idCar : java.util.UUID
+	{field} -idCustomer : java.util.UUID
+	{method}  {static} +builder () : bco.bookingcar.domain.booking.BookedCar$BookedCarBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +withIdCar ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +withIdCustomer ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCar
+}
+
+
+class bco.bookingcar.domain.booking.BookingCarAttempt {
+	{method}  {static} +builder () : bco.bookingcar.domain.booking.BookingCarAttempt$BookingCarAttemptBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withCar ( paramCar1 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.booking.BookingCarAttempt
+	{method} +withCustomer ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookingCarAttempt
+	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookingCarAttempt
+}
+
+
+class bco.bookingcar.domain.booking.CarNotAvailableException {
+}
+
+
+class bco.bookingcar.domain.booking.SearchAvailableCarsCriterias {
+	{method}  {static} +builder () : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias$SearchAvailableCarsCriteriasBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias
+}
+
+
+class bco.bookingcar.domain.car.Car {
+	{field} -brand : String
+	{field} -id : java.util.UUID
+	{field} -model : String
+	{field} -numberOfPlace : Integer
+	{method}  {static} +builder () : bco.bookingcar.domain.car.Car$CarBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withBrand ( paramString1 : String ) : bco.bookingcar.domain.car.Car
+	{method} +withCategory ( paramCarCategory1 : bco.bookingcar.domain.car.CarCategory ) : bco.bookingcar.domain.car.Car
+	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.car.Car
+	{method} +withModel ( paramString1 : String ) : bco.bookingcar.domain.car.Car
+	{method} +withNumberOfPlace ( paramInteger1 : Integer ) : bco.bookingcar.domain.car.Car
+}
+
+
+enum bco.bookingcar.domain.car.CarCategory {
+	{field} +CITY_DWELLER
+	{field} +MINIVAN
+	{field} +SEDAN
+}
+
+
+class bco.bookingcar.domain.customer.Customer {
+	{field} -firstname : String
+	{field} -id : java.util.UUID
+	{field} -lastname : String
+	{method}  {static} +builder () : bco.bookingcar.domain.customer.Customer$CustomerBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withFirstname ( paramString1 : String ) : bco.bookingcar.domain.customer.Customer
+	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.customer.Customer
+	{method} +withLastname ( paramString1 : String ) : bco.bookingcar.domain.customer.Customer
+}
+
+
+interface bco.bookingcar.domain.ports.StoreBookedCar {
+	{method}  {abstract} +add ( paramBookedCar1 : bco.bookingcar.domain.booking.BookedCar ) : bco.bookingcar.domain.booking.BookedCar
+	{method}  {abstract} +getAll ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : java.util.List
+}
+
+
+interface bco.bookingcar.domain.ports.StoreCars {
+	{method}  {abstract} +add ( paramCar1 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.car.Car
+	{method}  {abstract} +addAll ( paramList1 : java.util.List ) : java.util.List
+	{method}  {abstract} +getAll () : java.util.List
+	{method}  {abstract} +getById ( paramUUID1 : java.util.UUID ) : java.util.Optional
+	{method}  {abstract} +saveAll ( paramList1 : java.util.List ) : void
+}
+
+
+interface bco.bookingcar.domain.ports.StoreCustomers {
+	{method}  {abstract} +add ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.customer.Customer
+	{method}  {abstract} +getById ( paramUUID1 : java.util.UUID ) : java.util.Optional
+}
+
+
+class bco.bookingcar.domain.shared.Period {
+	{field} -endDateTime : java.time.ZonedDateTime
+	{field} -startDateTime : java.time.ZonedDateTime
+	{method}  {static} +builder () : bco.bookingcar.domain.shared.Period$PeriodBuilder
+	{method} #canEqual ( paramObject1 : Object ) : boolean
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hasIntersectionWith ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +withEndDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period
+	{method} +withStartDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period
+}
+
+
+
+
+bco.bookingcar.domain.booking.AvailableCar -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCar : storeBookedCar
+bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreCars : storeCars
+bco.bookingcar.domain.booking.BcoBookingCar ..|>  bco.bookingcar.domain.BookingCar
+bco.bookingcar.domain.booking.BookedCar -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.car.Car : car
+bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.customer.Customer : customer
+bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.booking.SearchAvailableCarsCriterias -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.car.Car -->  bco.bookingcar.domain.car.CarCategory : category
+
+hide methods
+
+@enduml

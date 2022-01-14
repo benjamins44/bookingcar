@@ -17,6 +17,36 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>plantuml-generator-maven-plugin</artifactId>
+                <groupId>de.elnarion.maven</groupId>
+                <version>1.1.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-simple-diagram</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase>
+                        <configuration>
+                            <outputDirectory>${basedir}/docs</outputDirectory>
+                            <outputFilename>domain.puml</outputFilename>
+                            <scanPackages>
+                                <scanPackage>
+                                    bco.bookingcar.domain
+                                </scanPackage>
+                            </scanPackages>
+                            <hideMethods>true</hideMethods>
+                            <blacklistRegexp>(.*InMemory.*|.*Builder)</blacklistRegexp>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>bco</groupId>
