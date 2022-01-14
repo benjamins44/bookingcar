@@ -1,15 +1,15 @@
-package bco.bookingcar.booking;
+package bco.bookingcar.application.booking;
 
 import bco.bookingcar.annotation.ApplicationService;
-import bco.bookingcar.car.CarNotFoundException;
-import bco.bookingcar.customer.CustomerNotFoundException;
+import bco.bookingcar.application.car.CarNotFoundException;
+import bco.bookingcar.application.customer.CustomerNotFoundException;
+import bco.bookingcar.application.primary.BookingCarManager;
+import bco.bookingcar.application.primary.CarManager;
+import bco.bookingcar.application.primary.CustomerManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.*;
 import bco.bookingcar.domain.ports.StoreBookedCar;
 import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.primary.BookingCarManager;
-import bco.bookingcar.primary.CarManager;
-import bco.bookingcar.primary.CustomerManager;
 import lombok.AllArgsConstructor;
 
 import java.util.List;

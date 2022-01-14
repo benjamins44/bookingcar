@@ -1,6 +1,6 @@
-package bco.bookingcar.primary;
+package bco.bookingcar.application.primary;
 
-import bco.bookingcar.car.CarNotFoundException;
+import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.domain.car.Car;
 
 import java.util.UUID;

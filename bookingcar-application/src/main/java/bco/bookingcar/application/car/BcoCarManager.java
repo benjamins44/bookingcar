@@ -1,9 +1,9 @@
-package bco.bookingcar.car;
+package bco.bookingcar.application.car;
 
 import bco.bookingcar.annotation.ApplicationService;
+import bco.bookingcar.application.primary.CarManager;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.ports.StoreCars;
-import bco.bookingcar.primary.CarManager;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;

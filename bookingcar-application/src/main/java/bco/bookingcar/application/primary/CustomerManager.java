@@ -1,6 +1,6 @@
-package bco.bookingcar.primary;
+package bco.bookingcar.application.primary;
 
-import bco.bookingcar.customer.CustomerNotFoundException;
+import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.customer.Customer;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
-package bco.bookingcar.primary;
+package bco.bookingcar.application.primary;
 
-import bco.bookingcar.car.CarNotFoundException;
-import bco.bookingcar.customer.CustomerNotFoundException;
+import bco.bookingcar.application.car.CarNotFoundException;
+import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.booking.AvailableCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;

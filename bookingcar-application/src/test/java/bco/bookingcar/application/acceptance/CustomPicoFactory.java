@@ -1,8 +1,8 @@
 package bco.bookingcar.application.acceptance;
 
-import bco.bookingcar.booking.BcoBookingCarManager;
-import bco.bookingcar.car.BcoCarManager;
-import bco.bookingcar.customer.BcoCustomerManager;
+import bco.bookingcar.application.booking.BcoBookingCarManager;
+import bco.bookingcar.application.car.BcoCarManager;
+import bco.bookingcar.application.customer.BcoCustomerManager;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.ports.stubs.InMemoryStoreBookedCars;
 import bco.bookingcar.domain.ports.stubs.InMemoryStoreCars;

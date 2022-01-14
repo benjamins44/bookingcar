@@ -1,10 +1,11 @@
 package bco.bookingcar.application.unit.booking;
 
-import bco.bookingcar.booking.BcoBookingCarManager;
-import bco.bookingcar.car.BcoCarManager;
-import bco.bookingcar.car.CarNotFoundException;
-import bco.bookingcar.customer.BcoCustomerManager;
-import bco.bookingcar.customer.CustomerNotFoundException;
+import bco.bookingcar.application.booking.BcoBookingCarManager;
+import bco.bookingcar.application.car.BcoCarManager;
+import bco.bookingcar.application.car.CarNotFoundException;
+import bco.bookingcar.application.customer.BcoCustomerManager;
+import bco.bookingcar.application.customer.CustomerNotFoundException;
+import bco.bookingcar.application.primary.BookingCarManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
@@ -19,7 +20,6 @@ import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
-import bco.bookingcar.primary.BookingCarManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
