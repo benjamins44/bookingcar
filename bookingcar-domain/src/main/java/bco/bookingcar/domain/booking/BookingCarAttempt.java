@@ -3,7 +3,6 @@ package bco.bookingcar.domain.booking;
 import bco.bookingcar.annotation.ValueObject;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.ports.StoreBookedCar;
 import bco.bookingcar.domain.shared.Period;
 import lombok.*;
 
@@ -30,14 +29,5 @@ public class BookingCarAttempt {
         this.customer = customer;
     }
 
-    public BookedCar book(StoreBookedCar storeBookedCar) throws CarNotAvailableException {
-        if (this.getCar().isBookedOn(storeBookedCar, this.getPeriod())) {
-            throw new CarNotAvailableException();
-        }
-        return storeBookedCar.add(BookedCar.builder()
-                .idCar(car.getId())
-                .idCustomer(customer.getId())
-                .period(this.getPeriod())
-                .build());
-    }
+
 }

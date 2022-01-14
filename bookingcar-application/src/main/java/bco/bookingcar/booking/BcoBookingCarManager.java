@@ -3,11 +3,11 @@ package bco.bookingcar.booking;
 import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.car.CarNotFoundException;
 import bco.bookingcar.customer.CustomerNotFoundException;
-import bco.bookingcar.domain.SearchAvailableCars;
+import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.*;
 import bco.bookingcar.domain.ports.StoreBookedCar;
 import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.primary.BookingCar;
+import bco.bookingcar.primary.BookingCarManager;
 import bco.bookingcar.primary.CarManager;
 import bco.bookingcar.primary.CustomerManager;
 import lombok.AllArgsConstructor;
@@ -17,16 +17,16 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @ApplicationService
-public class BcoBookingCar implements BookingCar {
+public class BcoBookingCarManager implements BookingCarManager {
 
-    private SearchAvailableCars searchAvailableCars;
+    private BookingCar bookingCar;
     private StoreBookedCar storeBookedCar;
     private CarManager carManager;
     private CustomerManager customerManager;
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
-        return searchAvailableCars.search(criterias);
+        return bookingCar.search(criterias);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BcoBookingCar implements BookingCar {
                 .car(car)
                 .customer(customer)
                 .build();
-        return bookingCarAttempt.book(storeBookedCar);
+        return bookingCar.book(bookingCarAttempt);
     }
 }
 

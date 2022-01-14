@@ -1,12 +1,12 @@
 package bco.bookingcar.application.unit.booking;
 
-import bco.bookingcar.booking.BcoBookingCar;
+import bco.bookingcar.booking.BcoBookingCarManager;
 import bco.bookingcar.car.BcoCarManager;
 import bco.bookingcar.car.CarNotFoundException;
 import bco.bookingcar.customer.BcoCustomerManager;
 import bco.bookingcar.customer.CustomerNotFoundException;
-import bco.bookingcar.domain.SearchAvailableCars;
-import bco.bookingcar.domain.booking.BcoSearchAvailableCars;
+import bco.bookingcar.domain.BookingCar;
+import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.ports.StoreBookedCar;
@@ -19,7 +19,7 @@ import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
-import bco.bookingcar.primary.BookingCar;
+import bco.bookingcar.primary.BookingCarManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @InjectDomainObjects
 @DisplayName("Booking car test")
-public class BcoBookingCarTest {
+public class BcoBookingCarManagerTest {
 
-    private BookingCar bookingCar;
+    private BookingCarManager bookingCarManager;
     private StoreCars storeCars;
     private StoreBookedCar storeBookedCar;
     private StoreCustomers storeCustomers;
@@ -45,8 +45,8 @@ public class BcoBookingCarTest {
         this.storeBookedCar = storeBookedCar;
         this.storeCars = storeCars;
         this.storeCustomers = storeCustomers;
-        SearchAvailableCars searchAvailableCars = new BcoSearchAvailableCars(storeCars, storeBookedCar);
-        this.bookingCar = new BcoBookingCar(searchAvailableCars, storeBookedCar, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers));
+        BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCar);
+        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeBookedCar, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers));
     }
 
     @Nested
@@ -57,7 +57,7 @@ public class BcoBookingCarTest {
             var nbOfCars = 5;
             var cars = storeCars.addAll(CarFactory.buildCars(nbOfCars));
 
-            var availableCars = bookingCar.search(SearchAvailableCarsCriteriasFactory.build());
+            var availableCars = bookingCarManager.search(SearchAvailableCarsCriteriasFactory.build());
 
             assertThat(availableCars.size()).isEqualTo(nbOfCars);
         }
@@ -81,7 +81,7 @@ public class BcoBookingCarTest {
         void customer_can_book_an_available_car() throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
-            bookingCar.book(idCar, idCustomer, period);
+            bookingCarManager.book(idCar, idCustomer, period);
 
 
             assertThat(storeBookedCar.getAll(period).stream().anyMatch(bookedCar ->
@@ -103,7 +103,7 @@ public class BcoBookingCarTest {
                     storeBookedCar
             );
 
-            assertThatThrownBy(() -> bookingCar.book(car.getId(), idCustomer, period))
+            assertThatThrownBy(() -> bookingCarManager.book(car.getId(), idCustomer, period))
                     .isInstanceOf(CarNotAvailableException.class);
         }
     }

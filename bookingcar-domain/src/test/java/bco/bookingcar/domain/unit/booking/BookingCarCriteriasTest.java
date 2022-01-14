@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class SearchAvailableCarsCriteriasTest {
+class BookingCarCriteriasTest {
     @Test
     @DisplayName("Period must not be null")
     void period_must_not_be_null() {

@@ -11,7 +11,7 @@ import bco.bookingcar.domain.shared.Period;
 import java.util.List;
 import java.util.UUID;
 
-public interface BookingCar {
+public interface BookingCarManager {
     List<AvailableCar> search(SearchAvailableCarsCriterias criterias);
 
     BookedCar book(UUID carId, UUID customerId, Period period) throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException;

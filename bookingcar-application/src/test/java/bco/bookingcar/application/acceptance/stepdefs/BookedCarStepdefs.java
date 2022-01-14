@@ -6,7 +6,7 @@ import bco.bookingcar.domain.booking.SearchAvailableCarsCriterias;
 import bco.bookingcar.domain.ports.StoreBookedCar;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.primary.BookingCar;
+import bco.bookingcar.primary.BookingCarManager;
 import cucumber.api.java8.En;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class BookedCarStepdefs implements En {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ZoneId timeZone = ZoneId.systemDefault();
 
-    public BookedCarStepdefs(StoreBookedCar storeBookedCar, StoreCars storeCars, BookingCar bookingCar, TestContext testContext) {
+    public BookedCarStepdefs(StoreBookedCar storeBookedCar, StoreCars storeCars, BookingCarManager bookingCarManager, TestContext testContext) {
         Given("^The car \"([^\"]*)\" is booked between \"([^\"]*)\" and \"([^\"]*)\"$", (String idCar, String startDate, String endDate) ->
                 storeBookedCar.add(
                         BookedCar.builder()
@@ -37,7 +37,7 @@ public class BookedCarStepdefs implements En {
                 )
         );
         When("^I'm looking for available cars between \"([^\"]*)\" and \"([^\"]*)\"$", (String startDate, String endDate) -> {
-            var availableCars = bookingCar.search(
+            var availableCars = bookingCarManager.search(
                     SearchAvailableCarsCriterias.builder()
                             .period(Period.builder()
                                     .startDateTime(toZonedDateTime(startDate))
@@ -60,7 +60,7 @@ public class BookedCarStepdefs implements En {
                     .startDateTime(toZonedDateTime(startDate))
                     .endDateTime(toZonedDateTime(endDate))
                     .build();
-            var bookedCar = bookingCar.book(
+            var bookedCar = bookingCarManager.book(
                     UUID.fromString(idCar),
                     testContext.getCustomer().get().getId(),
                     bookingPeriod

@@ -1,9 +1,6 @@
 package bco.bookingcar.domain.car;
 
 import bco.bookingcar.annotation.AggregateRoot;
-import bco.bookingcar.domain.booking.BookedCar;
-import bco.bookingcar.domain.ports.StoreBookedCar;
-import bco.bookingcar.domain.shared.Period;
 import lombok.*;
 
 import java.util.UUID;
@@ -36,16 +33,5 @@ public class Car {
         this.model = model;
         this.numberOfPlace = numberOfPlace;
         this.category = category;
-    }
-
-    public boolean isBookedOn(StoreBookedCar storeBookedCar, Period period) {
-        return !this.isNotBookedIn(storeBookedCar, period);
-    }
-
-    public boolean isNotBookedIn(StoreBookedCar storeBookedCar, Period period) {
-        var bookedCars = storeBookedCar.getAll(period);
-        return bookedCars.stream()
-                .map(BookedCar::getIdCar)
-                .noneMatch(id -> id.equals(this.getId()));
     }
 }
