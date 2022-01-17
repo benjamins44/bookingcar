@@ -13,7 +13,7 @@ public interface StoreCars {
 
     List<Car> getAll();
 
-    void saveAll(List<Car> car1);
+    List<Car> saveAll(List<Car> car1);
 
     Optional<Car> getById(UUID carId);
 }

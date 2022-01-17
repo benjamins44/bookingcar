@@ -4,7 +4,7 @@ import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import cucumber.api.java8.En;
@@ -22,9 +22,9 @@ public class BookedCarStepdefs implements En {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ZoneId timeZone = ZoneId.systemDefault();
 
-    public BookedCarStepdefs(StoreBookedCar storeBookedCar, StoreCars storeCars, BookingCarManager bookingCarManager, TestContext testContext) {
+    public BookedCarStepdefs(StoreBookedCars storeBookedCars, StoreCars storeCars, BookingCarManager bookingCarManager, TestContext testContext) {
         Given("^The car \"([^\"]*)\" is booked between \"([^\"]*)\" and \"([^\"]*)\"$", (String idCar, String startDate, String endDate) ->
-                storeBookedCar.add(
+                storeBookedCars.add(
                         BookedCar.builder()
                                 .idCar(UUID.fromString(idCar))
                                 .idCustomer(UUID.randomUUID())
@@ -69,7 +69,7 @@ public class BookedCarStepdefs implements En {
             testContext.setBookingPeriod(bookingPeriod);
         });
         Then("^This car is booked for me$", () -> {
-            var bookedCars = storeBookedCar.getAll(testContext.getBookingPeriod());
+            var bookedCars = storeBookedCars.getAll(testContext.getBookingPeriod());
             assertThat(
                     bookedCars.stream()
                             .anyMatch(bookedCar -> bookedCar.getIdCustomer().equals(testContext.getCustomer().get().getId()))

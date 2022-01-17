@@ -4,7 +4,7 @@ import bco.bookingcar.annotation.DomainService;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 public class BcoBookingCar implements BookingCar {
 
     private StoreCars storeCars;
-    private StoreBookedCar storeBookedCar;
+    private StoreBookedCars storeBookedCars;
 
     @Override
     public BookedCar book(Car car, Period period, Customer customer) throws CarNotAvailableException {
@@ -26,11 +26,11 @@ public class BcoBookingCar implements BookingCar {
                 .idCustomer(customer.getId())
                 .period(period)
                 .build();
-        return storeBookedCar.add(newBookedCar);
+        return storeBookedCars.add(newBookedCar);
     }
 
     @Override
     public Boolean carIsBookedOn(Car car, Period period) {
-        return !storeBookedCar.getBookedCarByCarAndPeriod(car, period).isEmpty();
+        return !storeBookedCars.getBookedCarByCarAndPeriod(car, period).isEmpty();
     }
 }

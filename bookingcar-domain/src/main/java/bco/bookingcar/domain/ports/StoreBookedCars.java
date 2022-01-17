@@ -6,7 +6,7 @@ import bco.bookingcar.domain.shared.Period;
 
 import java.util.List;
 
-public interface StoreBookedCar {
+public interface StoreBookedCars {
     BookedCar add(BookedCar build);
 
     List<BookedCar> getAll(Period period);

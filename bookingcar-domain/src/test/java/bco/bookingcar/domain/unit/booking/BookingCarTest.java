@@ -13,7 +13,7 @@ import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.car.CarFactory;
@@ -25,15 +25,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @InjectDomainObjects
 @DisplayName("Booking car test")
 class BookingCarTest {
-    private StoreBookedCar storeBookedCar;
+    private StoreBookedCars storeBookedCars;
     private StoreCars storeCars;
     private BookingCar bookingCar;
 
     @BeforeEach
-    void setup(StoreBookedCar storeBookedCar, StoreCars storeCars) {
-        this.storeBookedCar = storeBookedCar;
+    void setup(StoreBookedCars storeBookedCars, StoreCars storeCars) {
+        this.storeBookedCars = storeBookedCars;
         this.storeCars = storeCars;
-        bookingCar = new BcoBookingCar(storeCars, storeBookedCar);
+        bookingCar = new BcoBookingCar(storeCars, storeBookedCars);
     }
 
     @Nested
@@ -56,7 +56,7 @@ class BookingCarTest {
             var nbOfCars = 5;
             var cars = storeCars.addAll(CarFactory.buildCars(nbOfCars));
             var bookedPeriod = PeriodFactory.build();
-            var carBooked = StoreBookedCarUtils.changeAndSaveBookedPeriodOfCars(cars, List.of(bookedPeriod), storeBookedCar);
+            var carBooked = StoreBookedCarUtils.changeAndSaveBookedPeriodOfCars(cars, List.of(bookedPeriod), storeBookedCars);
 
             Assertions.assertThatThrownBy(() -> bookingCar.book(
                         carBooked.get(0),

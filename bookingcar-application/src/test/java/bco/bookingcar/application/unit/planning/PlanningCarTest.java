@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import bco.bookingcar.application.planning.BcoPlanningCarManager;
 import bco.bookingcar.application.PlanningCarManager;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.shared.Period;
@@ -25,14 +25,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PlanningCarTest {
 
     private StoreCars storeCars;
-    private StoreBookedCar storeBookedCar;
+    private StoreBookedCars storeBookedCars;
     private PlanningCarManager planningCarManager;
 
     @BeforeEach
-    void setup(StoreCars storeCars, StoreBookedCar storeBookedCar, StoreCustomers storeCustomers) {
+    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers) {
         this.storeCars = storeCars;
-        this.storeBookedCar = storeBookedCar;
-        planningCarManager = new BcoPlanningCarManager(storeCars, storeBookedCar, storeCustomers);
+        this.storeBookedCars = storeBookedCars;
+        planningCarManager = new BcoPlanningCarManager(storeCars, storeBookedCars, storeCustomers);
     }
 
     @Nested
@@ -58,8 +58,7 @@ public class PlanningCarTest {
                     List.of(Period.builder()
                             .startDateTime(period.getStartDateTime().minusHours(2L))
                             .endDateTime(period.getStartDateTime().plusHours(1L))
-                            .build()),
-                    storeBookedCar
+                            .build()), storeBookedCars
             );
 
             var planningCars = planningCarManager.get(period);
@@ -82,8 +81,7 @@ public class PlanningCarTest {
                                     .startDateTime(period.getEndDateTime().minusHours(2L))
                                     .endDateTime(period.getEndDateTime().plusHours(1L))
                                     .build()
-                    ),
-                    storeBookedCar
+                    ), storeBookedCars
             );
 
             var planningCars = planningCarManager.get(period);

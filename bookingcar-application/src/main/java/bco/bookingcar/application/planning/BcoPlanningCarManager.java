@@ -7,7 +7,7 @@ import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.shared.Period;
@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @ApplicationService
 public class BcoPlanningCarManager implements PlanningCarManager {
     private StoreCars storeCars;
-    private StoreBookedCar storeBookedCar;
+    private StoreBookedCars storeBookedCars;
     private StoreCustomers storeCustomers;
 
     @Override
@@ -30,7 +30,7 @@ public class BcoPlanningCarManager implements PlanningCarManager {
     }
 
     private List<PlanningBookedCar> getPlanningBookedCar(Car car, Period period) {
-        return storeBookedCar.getBookedCarByCarAndPeriod(car, period).stream()
+        return storeBookedCars.getBookedCarByCarAndPeriod(car, period).stream()
                 .map(bookedCar ->
                         PlanningBookedCar.builder()
                                 .period(bookedCar.getPeriod())

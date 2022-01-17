@@ -72,7 +72,7 @@ class bco.bookingcar.domain.customer.Customer {
 }
 
 
-interface bco.bookingcar.domain.ports.StoreBookedCar {
+interface bco.bookingcar.domain.ports.StoreBookedCars {
 	{method}  {abstract} +add ( paramBookedCar1 : bco.bookingcar.domain.booking.BookedCar ) : bco.bookingcar.domain.booking.BookedCar
 	{method}  {abstract} +getAll ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : java.util.List
 	{method}  {abstract} +getBookedCarByCarAndPeriod ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : java.util.List
@@ -84,7 +84,7 @@ interface bco.bookingcar.domain.ports.StoreCars {
 	{method}  {abstract} +addAll ( paramList1 : java.util.List ) : java.util.List
 	{method}  {abstract} +getAll () : java.util.List
 	{method}  {abstract} +getById ( paramUUID1 : java.util.UUID ) : java.util.Optional
-	{method}  {abstract} +saveAll ( paramList1 : java.util.List ) : void
+	{method}  {abstract} +saveAll ( paramList1 : java.util.List ) : java.util.List
 }
 
 
@@ -110,7 +110,7 @@ class bco.bookingcar.domain.shared.Period {
 
 
 
-bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCar : storeBookedCar
+bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCars : storeBookedCars
 bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreCars : storeCars
 bco.bookingcar.domain.booking.BcoBookingCar ..|>  bco.bookingcar.domain.BookingCar
 bco.bookingcar.domain.booking.BookedCar -->  bco.bookingcar.domain.shared.Period : period

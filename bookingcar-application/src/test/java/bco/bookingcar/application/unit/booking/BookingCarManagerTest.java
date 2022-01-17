@@ -10,7 +10,7 @@ import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.car.Car;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.shared.Period;
@@ -36,15 +36,15 @@ public class BookingCarManagerTest {
 
     private BookingCarManager bookingCarManager;
     private StoreCars storeCars;
-    private StoreBookedCar storeBookedCar;
+    private StoreBookedCars storeBookedCars;
     private StoreCustomers storeCustomers;
 
     @BeforeEach
-    void setup(StoreCars storeCars, StoreBookedCar storeBookedCar, StoreCustomers storeCustomers) {
-        this.storeBookedCar = storeBookedCar;
+    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers) {
+        this.storeBookedCars = storeBookedCars;
         this.storeCars = storeCars;
         this.storeCustomers = storeCustomers;
-        BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCar);
+        BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCars);
         this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers));
     }
 
@@ -68,7 +68,7 @@ public class BookingCarManagerTest {
             var nbOfCars = 5;
             var cars = storeCars.addAll(CarFactory.buildCars(nbOfCars));
             var criterias = SearchAvailableCarsCriteriasFactory.build();
-            StoreBookedCarUtils.changeAndSaveBookedPeriodOfCars(cars, List.of(criterias.getPeriod()), storeBookedCar);
+            StoreBookedCarUtils.changeAndSaveBookedPeriodOfCars(cars, List.of(criterias.getPeriod()), storeBookedCars);
 
             var availableCars = bookingCarManager.search(criterias);
 
@@ -84,8 +84,7 @@ public class BookingCarManagerTest {
                     List.of(Period.builder()
                             .startDateTime(criterias.getPeriod().getEndDateTime().plusHours(1L))
                             .endDateTime(criterias.getPeriod().getEndDateTime().plusHours(2L))
-                            .build()),
-                    storeBookedCar
+                            .build()), storeBookedCars
             );
 
             var availableCars = bookingCarManager.search(criterias);
@@ -102,8 +101,7 @@ public class BookingCarManagerTest {
                     List.of(Period.builder()
                             .startDateTime(criterias.getPeriod().getStartDateTime().minusHours(2L))
                             .endDateTime(criterias.getPeriod().getStartDateTime().minusHours(1L))
-                            .build()),
-                    storeBookedCar
+                            .build()), storeBookedCars
             );
 
             var availableCars = bookingCarManager.search(criterias);
@@ -126,8 +124,7 @@ public class BookingCarManagerTest {
                                     .startDateTime(criterias.getPeriod().getEndDateTime().minusHours(2L))
                                     .endDateTime(criterias.getPeriod().getEndDateTime().plusHours(1L))
                                     .build()
-                    ),
-                    storeBookedCar
+                    ), storeBookedCars
             );
 
             var availableCars = bookingCarManager.search(criterias);
@@ -157,7 +154,7 @@ public class BookingCarManagerTest {
             bookingCarManager.book(idCar, idCustomer, period);
 
 
-            assertThat(storeBookedCar.getAll(period).stream().anyMatch(bookedCar ->
+            assertThat(storeBookedCars.getAll(period).stream().anyMatch(bookedCar ->
                             bookedCar.getIdCustomer().equals(idCustomer) &&
                                     bookedCar.getIdCar().equals(idCar)
                     )
@@ -172,8 +169,7 @@ public class BookingCarManagerTest {
                     List.of(Period.builder()
                             .startDateTime(period.getStartDateTime().minusHours(2L))
                             .endDateTime(period.getStartDateTime().plusHours(1L))
-                            .build()),
-                    storeBookedCar
+                            .build()), storeBookedCars
             );
 
             assertThatThrownBy(() -> bookingCarManager.book(car.getId(), idCustomer, period))

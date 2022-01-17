@@ -34,8 +34,9 @@ public class InMemoryStoreCars implements StoreCars {
     }
 
     @Override
-    public void saveAll(List<Car> cars) {
+    public List<Car> saveAll(List<Car> cars) {
         cars.forEach(car -> carMap.put(car.getId(), car));
+        return cars;
     }
 
     @Override
