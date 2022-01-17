@@ -1,8 +1,9 @@
-package bco.bookingcar.domain.ports.stubs;
+package bco.bookingcar.domain.secondary.stubs;
 
 import bco.bookingcar.annotation.Stub;
 import bco.bookingcar.domain.booking.BookedCar;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.car.Car;
+import bco.bookingcar.domain.secondary.StoreBookedCar;
 import bco.bookingcar.domain.shared.Period;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,10 @@ public class InMemoryStoreBookedCars implements StoreBookedCar {
                 .stream()
                 .filter(bookedCar -> bookedCar.getPeriod().hasIntersectionWith(period))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookedCar> getBookedCarByCarAndPeriod(Car car, Period period) {
+        return getAll(period).stream().filter(bookedCar -> bookedCar.getIdCar().equals(car.getId())).collect(Collectors.toList());
     }
 }

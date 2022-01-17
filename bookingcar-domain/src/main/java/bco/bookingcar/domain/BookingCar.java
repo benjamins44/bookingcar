@@ -1,13 +1,15 @@
 package bco.bookingcar.domain;
 
 import bco.bookingcar.annotation.DomainService;
-import bco.bookingcar.domain.booking.*;
-
-import java.util.List;
+import bco.bookingcar.domain.booking.BookedCar;
+import bco.bookingcar.domain.booking.BookingCarAttempt;
+import bco.bookingcar.domain.booking.CarNotAvailableException;
+import bco.bookingcar.domain.car.Car;
+import bco.bookingcar.domain.shared.Period;
 
 @DomainService
 public interface BookingCar {
-    List<AvailableCar> search(SearchAvailableCarsCriterias criterias);
+    Boolean carIsBookedOn(Car car, Period period);
 
     BookedCar book(BookingCarAttempt bookingCarAttempt) throws CarNotAvailableException;
 }

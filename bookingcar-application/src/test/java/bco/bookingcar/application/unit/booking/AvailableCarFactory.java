@@ -1,6 +1,6 @@
-package bco.bookingcar.domain.unit.booking;
+package bco.bookingcar.application.unit.booking;
 
-import bco.bookingcar.domain.booking.AvailableCar;
+import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 
 import java.util.UUID;

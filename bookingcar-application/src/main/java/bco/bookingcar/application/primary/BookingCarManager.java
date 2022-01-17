@@ -2,10 +2,10 @@ package bco.bookingcar.application.primary;
 
 import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
-import bco.bookingcar.domain.booking.AvailableCar;
+import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
-import bco.bookingcar.domain.booking.SearchAvailableCarsCriterias;
+import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
 import bco.bookingcar.domain.shared.Period;
 
 import java.util.List;

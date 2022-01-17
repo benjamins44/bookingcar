@@ -1,8 +1,8 @@
-package bco.bookingcar.domain.ports.stubs;
+package bco.bookingcar.domain.secondary.stubs;
 
 import bco.bookingcar.annotation.Stub;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.ports.StoreCustomers;
+import bco.bookingcar.domain.secondary.StoreCustomers;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 

@@ -28,6 +28,4 @@ public class BookingCarAttempt {
         this.period = period;
         this.customer = customer;
     }
-
-
 }

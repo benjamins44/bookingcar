@@ -3,7 +3,7 @@ package bco.bookingcar.application.customer;
 import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.primary.CustomerManager;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.ports.StoreCustomers;
+import bco.bookingcar.domain.secondary.StoreCustomers;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;

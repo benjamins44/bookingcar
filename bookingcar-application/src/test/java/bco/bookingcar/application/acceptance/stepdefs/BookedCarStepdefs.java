@@ -1,11 +1,11 @@
 package bco.bookingcar.application.acceptance.stepdefs;
 
 import bco.bookingcar.application.primary.BookingCarManager;
-import bco.bookingcar.domain.booking.AvailableCar;
+import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.domain.booking.BookedCar;
-import bco.bookingcar.domain.booking.SearchAvailableCarsCriterias;
-import bco.bookingcar.domain.ports.StoreBookedCar;
-import bco.bookingcar.domain.ports.StoreCars;
+import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
+import bco.bookingcar.domain.secondary.StoreBookedCar;
+import bco.bookingcar.domain.secondary.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import cucumber.api.java8.En;
 

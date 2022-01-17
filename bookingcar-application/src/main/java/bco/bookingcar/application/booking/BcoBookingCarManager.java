@@ -8,25 +8,34 @@ import bco.bookingcar.application.primary.CarManager;
 import bco.bookingcar.application.primary.CustomerManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.*;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.secondary.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @ApplicationService
 public class BcoBookingCarManager implements BookingCarManager {
 
     private BookingCar bookingCar;
-    private StoreBookedCar storeBookedCar;
+    private StoreCars storeCars;
     private CarManager carManager;
     private CustomerManager customerManager;
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
-        return bookingCar.search(criterias);
+            return storeCars
+                    .getAll()
+                    .stream()
+                    .filter(car -> !bookingCar.carIsBookedOn(car, criterias.getPeriod()))
+                    .map(car -> AvailableCar.builder()
+                            .idCar(car.getId())
+                            .period(criterias.getPeriod())
+                            .build()
+                    ).collect(Collectors.toList());
     }
 
     @Override

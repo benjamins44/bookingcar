@@ -1,6 +1,6 @@
 package bco.bookingcar.application.acceptance.stepdefs;
 
-import bco.bookingcar.domain.booking.AvailableCar;
+import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.shared.Period;

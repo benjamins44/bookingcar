@@ -1,8 +1,10 @@
-package bco.bookingcar.domain.booking;
+package bco.bookingcar.application.booking;
 
-import bco.bookingcar.annotation.ValueObject;
+import bco.bookingcar.annotation.DTO;
 import bco.bookingcar.domain.shared.Period;
 import lombok.*;
+
+import java.util.UUID;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -11,13 +13,16 @@ import static org.apache.commons.lang3.Validate.notNull;
 @Getter
 @ToString
 @EqualsAndHashCode
-@ValueObject
-public class SearchAvailableCarsCriterias {
+@DTO
+public class AvailableCar {
+    private UUID idCar;
     private Period period;
 
-    public SearchAvailableCarsCriterias(Period period) {
+    public AvailableCar(UUID idCar, Period period) {
+        notNull(idCar, "The idCar is mandatory");
         notNull(period, "The startDate is mandatory");
 
+        this.idCar = idCar;
         this.period = period;
     }
 }

@@ -1,4 +1,4 @@
-package bco.bookingcar.domain.unit.booking;
+package bco.bookingcar.application.unit.booking;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

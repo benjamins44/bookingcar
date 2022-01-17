@@ -2,7 +2,7 @@ package bco.bookingcar.domain.unit.booking;
 
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.car.Car;
-import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.secondary.StoreBookedCar;
 import bco.bookingcar.domain.shared.Period;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package bco.bookingcar.application.unit.car;
 import bco.bookingcar.application.car.BcoCarManager;
 import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.primary.CarManager;
-import bco.bookingcar.domain.ports.StoreCars;
+import bco.bookingcar.domain.secondary.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @InjectDomainObjects
 @DisplayName("Car manager test")
-public class BcoCarManagerTest {
+public class CarManagerTest {
 
     private StoreCars storeCars;
     private CarManager carManager;
