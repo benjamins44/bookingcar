@@ -1,4 +1,4 @@
-package bco.bookingcar.application.primary;
+package bco.bookingcar.application;
 
 import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.customer.Customer;

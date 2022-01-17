@@ -1,13 +1,13 @@
 @startuml
 
 interface bco.bookingcar.domain.BookingCar {
-	{method}  {abstract} +book ( paramBookingCarAttempt1 : bco.bookingcar.domain.booking.BookingCarAttempt ) : bco.bookingcar.domain.booking.BookedCar
+	{method}  {abstract} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
 	{method}  {abstract} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : Boolean
 }
 
 
 class bco.bookingcar.domain.booking.BcoBookingCar {
-	{method} +book ( paramBookingCarAttempt1 : bco.bookingcar.domain.booking.BookingCarAttempt ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : Boolean
 }
 
@@ -25,18 +25,6 @@ class bco.bookingcar.domain.booking.BookedCar {
 	{method} +withIdCar ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withIdCustomer ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCar
-}
-
-
-class bco.bookingcar.domain.booking.BookingCarAttempt {
-	{method}  {static} +builder () : bco.bookingcar.domain.booking.BookingCarAttempt$BookingCarAttemptBuilder
-	{method} #canEqual ( paramObject1 : Object ) : boolean
-	{method} +equals ( paramObject1 : Object ) : boolean
-	{method} +hashCode () : int
-	{method} +toString () : String
-	{method} +withCar ( paramCar1 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.booking.BookingCarAttempt
-	{method} +withCustomer ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookingCarAttempt
-	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookingCarAttempt
 }
 
 
@@ -84,14 +72,14 @@ class bco.bookingcar.domain.customer.Customer {
 }
 
 
-interface bco.bookingcar.domain.secondary.StoreBookedCar {
+interface bco.bookingcar.domain.ports.StoreBookedCar {
 	{method}  {abstract} +add ( paramBookedCar1 : bco.bookingcar.domain.booking.BookedCar ) : bco.bookingcar.domain.booking.BookedCar
 	{method}  {abstract} +getAll ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : java.util.List
 	{method}  {abstract} +getBookedCarByCarAndPeriod ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : java.util.List
 }
 
 
-interface bco.bookingcar.domain.secondary.StoreCars {
+interface bco.bookingcar.domain.ports.StoreCars {
 	{method}  {abstract} +add ( paramCar1 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.car.Car
 	{method}  {abstract} +addAll ( paramList1 : java.util.List ) : java.util.List
 	{method}  {abstract} +getAll () : java.util.List
@@ -100,7 +88,7 @@ interface bco.bookingcar.domain.secondary.StoreCars {
 }
 
 
-interface bco.bookingcar.domain.secondary.StoreCustomers {
+interface bco.bookingcar.domain.ports.StoreCustomers {
 	{method}  {abstract} +add ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.customer.Customer
 	{method}  {abstract} +getById ( paramUUID1 : java.util.UUID ) : java.util.Optional
 }
@@ -122,13 +110,10 @@ class bco.bookingcar.domain.shared.Period {
 
 
 
-bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.secondary.StoreBookedCar : storeBookedCar
-bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.secondary.StoreCars : storeCars
+bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCar : storeBookedCar
+bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreCars : storeCars
 bco.bookingcar.domain.booking.BcoBookingCar ..|>  bco.bookingcar.domain.BookingCar
 bco.bookingcar.domain.booking.BookedCar -->  bco.bookingcar.domain.shared.Period : period
-bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.car.Car : car
-bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.customer.Customer : customer
-bco.bookingcar.domain.booking.BookingCarAttempt -->  bco.bookingcar.domain.shared.Period : period
 bco.bookingcar.domain.car.Car -->  bco.bookingcar.domain.car.CarCategory : category
 
 hide methods

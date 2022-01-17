@@ -2,8 +2,8 @@ package bco.bookingcar.application.unit.customer;
 
 import bco.bookingcar.application.customer.BcoCustomerManager;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
-import bco.bookingcar.application.primary.CustomerManager;
-import bco.bookingcar.domain.secondary.StoreCustomers;
+import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import org.junit.jupiter.api.BeforeEach;

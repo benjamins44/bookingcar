@@ -3,12 +3,12 @@ package bco.bookingcar.application.booking;
 import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
-import bco.bookingcar.application.primary.BookingCarManager;
-import bco.bookingcar.application.primary.CarManager;
-import bco.bookingcar.application.primary.CustomerManager;
+import bco.bookingcar.application.BookingCarManager;
+import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.CustomerManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.*;
-import bco.bookingcar.domain.secondary.StoreCars;
+import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
 
@@ -42,12 +42,7 @@ public class BcoBookingCarManager implements BookingCarManager {
     public BookedCar book(UUID carId, UUID customerId, Period period) throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
         var car = carManager.findById(carId);
         var customer = customerManager.findById(customerId);
-        var bookingCarAttempt = BookingCarAttempt.builder()
-                .period(period)
-                .car(car)
-                .customer(customer)
-                .build();
-        return bookingCar.book(bookingCarAttempt);
+        return bookingCar.book(car, period, customer);
     }
 }
 

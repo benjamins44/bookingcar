@@ -2,8 +2,8 @@ package bco.bookingcar.application.unit.car;
 
 import bco.bookingcar.application.car.BcoCarManager;
 import bco.bookingcar.application.car.CarNotFoundException;
-import bco.bookingcar.application.primary.CarManager;
-import bco.bookingcar.domain.secondary.StoreCars;
+import bco.bookingcar.application.CarManager;
+import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package bco.bookingcar.application.primary;
+package bco.bookingcar.application;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package bco.bookingcar.domain.secondary;
+package bco.bookingcar.domain.ports;
 
 import bco.bookingcar.domain.customer.Customer;
 

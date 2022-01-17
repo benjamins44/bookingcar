@@ -3,13 +3,11 @@ package bco.bookingcar.domain.booking;
 import bco.bookingcar.annotation.DomainService;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.car.Car;
-import bco.bookingcar.domain.secondary.StoreBookedCar;
-import bco.bookingcar.domain.secondary.StoreCars;
+import bco.bookingcar.domain.customer.Customer;
+import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @DomainService
@@ -19,14 +17,14 @@ public class BcoBookingCar implements BookingCar {
     private StoreBookedCar storeBookedCar;
 
     @Override
-    public BookedCar book(BookingCarAttempt bookingCarAttempt) throws CarNotAvailableException {
-        if (carIsBookedOn(bookingCarAttempt.getCar(), bookingCarAttempt.getPeriod())) {
+    public BookedCar book(Car car, Period period, Customer customer) throws CarNotAvailableException {
+        if (carIsBookedOn(car, period)) {
             throw new CarNotAvailableException();
         }
         var newBookedCar = BookedCar.builder()
-                .idCar(bookingCarAttempt.getCar().getId())
-                .idCustomer(bookingCarAttempt.getCustomer().getId())
-                .period(bookingCarAttempt.getPeriod())
+                .idCar(car.getId())
+                .idCustomer(customer.getId())
+                .period(period)
                 .build();
         return storeBookedCar.add(newBookedCar);
     }

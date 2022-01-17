@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import bco.bookingcar.application.planning.BcoPlanningCarManager;
-import bco.bookingcar.application.primary.PlanningCarManager;
-import bco.bookingcar.domain.secondary.StoreBookedCar;
-import bco.bookingcar.domain.secondary.StoreCars;
-import bco.bookingcar.domain.secondary.StoreCustomers;
+import bco.bookingcar.application.PlanningCarManager;
+import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreCars;
+import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;

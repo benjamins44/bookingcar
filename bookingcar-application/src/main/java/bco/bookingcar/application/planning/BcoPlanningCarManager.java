@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bco.bookingcar.annotation.ApplicationService;
-import bco.bookingcar.application.primary.PlanningCarManager;
+import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.secondary.StoreBookedCar;
-import bco.bookingcar.domain.secondary.StoreCars;
-import bco.bookingcar.domain.secondary.StoreCustomers;
+import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreCars;
+import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
 

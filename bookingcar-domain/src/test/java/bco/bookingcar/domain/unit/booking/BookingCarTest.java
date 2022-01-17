@@ -1,25 +1,24 @@
 package bco.bookingcar.domain.unit.booking;
 
-import bco.bookingcar.domain.BookingCar;
-import bco.bookingcar.domain.booking.BcoBookingCar;
-import bco.bookingcar.domain.booking.BookedCar;
-import bco.bookingcar.domain.booking.BookingCarAttempt;
-import bco.bookingcar.domain.booking.CarNotAvailableException;
-import bco.bookingcar.domain.secondary.StoreBookedCar;
-import bco.bookingcar.domain.secondary.StoreCars;
-import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.domain.unit.InjectDomainObjects;
-import bco.bookingcar.domain.unit.car.CarFactory;
-import bco.bookingcar.domain.unit.customer.CustomerFactory;
-import bco.bookingcar.domain.unit.shared.PeriodFactory;
+import java.util.List;
+import java.util.UUID;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.UUID;
+import bco.bookingcar.domain.BookingCar;
+import bco.bookingcar.domain.booking.BcoBookingCar;
+import bco.bookingcar.domain.booking.BookedCar;
+import bco.bookingcar.domain.booking.CarNotAvailableException;
+import bco.bookingcar.domain.ports.StoreBookedCar;
+import bco.bookingcar.domain.ports.StoreCars;
+import bco.bookingcar.domain.unit.InjectDomainObjects;
+import bco.bookingcar.domain.unit.car.CarFactory;
+import bco.bookingcar.domain.unit.customer.CustomerFactory;
+import bco.bookingcar.domain.unit.shared.PeriodFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +42,11 @@ class BookingCarTest {
     class BookTest {
         @Test
         void customer_can_booking_a_car_when_all_cars_are_available() throws CarNotAvailableException {
-            BookedCar bookedCar = bookingCar.book(BookingCarAttemptFactory.build());
+            BookedCar bookedCar = bookingCar.book(
+                    CarFactory.build().withId(UUID.randomUUID()),
+                    PeriodFactory.build(),
+                    CustomerFactory.build().withId(UUID.randomUUID())
+            );
 
             assertThat(bookedCar.getId()).isNotNull();
         }
@@ -55,13 +58,11 @@ class BookingCarTest {
             var bookedPeriod = PeriodFactory.build();
             var carBooked = StoreBookedCarUtils.changeAndSaveBookedPeriodOfCars(cars, List.of(bookedPeriod), storeBookedCar);
 
-            Assertions.assertThatThrownBy(() ->
-                    bookingCar.book(BookingCarAttempt.builder()
-                            .car(carBooked.get(0))
-                            .customer(CustomerFactory.build().withId(UUID.randomUUID()))
-                            .period(bookedPeriod)
-                            .build())
-            ).isInstanceOf(CarNotAvailableException.class);
+            Assertions.assertThatThrownBy(() -> bookingCar.book(
+                        carBooked.get(0),
+                        bookedPeriod,
+                        CustomerFactory.build().withId(UUID.randomUUID()))
+                    ).isInstanceOf(CarNotAvailableException.class);
         }
     }
 }
