@@ -22,7 +22,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 
 @SpringBootTest
 @Import(PostgresqlContainerConfiguration.class)
-public class StoreCarsAdapterTest {
+public class StoreCarsAdapterIT {
 
     private static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 

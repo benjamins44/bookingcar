@@ -18,7 +18,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 
 @SpringBootTest
 @Import(PostgresqlContainerConfiguration.class)
-public class StoreCustomersAdapterTest {
+public class StoreCustomersAdapterIT {
 
     private static UUID customerExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
 

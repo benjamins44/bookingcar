@@ -24,7 +24,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 
 @SpringBootTest
 @Import(PostgresqlContainerConfiguration.class)
-public class StoreBookedCarsAdapterTest {
+public class StoreBookedCarsAdapterIT {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ZoneId timeZone = ZoneId.systemDefault();
