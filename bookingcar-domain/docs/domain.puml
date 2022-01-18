@@ -2,13 +2,13 @@
 
 interface bco.bookingcar.domain.BookingCar {
 	{method}  {abstract} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
-	{method}  {abstract} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : Boolean
+	{method}  {abstract} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
 }
 
 
 class bco.bookingcar.domain.booking.BcoBookingCar {
 	{method} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
-	{method} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : Boolean
+	{method} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
 }
 
 

@@ -9,7 +9,7 @@ import bco.bookingcar.domain.shared.Period;
 
 @DomainService
 public interface BookingCar {
-    Boolean carIsBookedOn(Car car, Period period);
+    boolean carIsBookedOn(Car car, Period period);
 
     BookedCar book(Car car, Period period, Customer customer) throws CarNotAvailableException;
 }

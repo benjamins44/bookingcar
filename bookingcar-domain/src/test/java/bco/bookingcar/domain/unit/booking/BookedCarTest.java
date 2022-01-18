@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayName("BookedCar entity tests")
@@ -16,7 +17,7 @@ public class BookedCarTest {
         @Test
         @DisplayName("Check valid object")
         void check_valid_object() {
-            BookedCarFactory.build();
+            assertThatCode(BookedCarFactory::build).doesNotThrowAnyException();
         }
 
         @Test

@@ -24,7 +24,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @Import(PostgresqlContainerConfiguration.class)
 public class StoreCarsAdapterIT {
 
-    private static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+    private final static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
     @Autowired
     private StoreCarsAdapter storeCarsAdapter;
@@ -50,7 +50,7 @@ public class StoreCarsAdapterIT {
             var numberOfCars = 5;
             var cars = storeCarsAdapter.addAll(CarFactory.buildCars(numberOfCars));
 
-            assertThat(cars.stream().filter(car -> car.getId() != null).collect(Collectors.toList()).size()).isEqualTo(numberOfCars);
+            assertThat(cars.stream().filter(car -> car.getId() != null).count()).isEqualTo(numberOfCars);
         }
     }
 
@@ -65,7 +65,7 @@ public class StoreCarsAdapterIT {
         void get_all_cars_work() {
             var cars = storeCarsAdapter.getAll();
 
-            assertThat(cars.stream().filter(car -> car.getId() != null).collect(Collectors.toList()).size()).isEqualTo(4);
+            assertThat(cars.stream().filter(car -> car.getId() != null).count()).isEqualTo(4);
         }
     }
 
@@ -103,7 +103,7 @@ public class StoreCarsAdapterIT {
         void get_by_id_existing_work() {
             var car = storeCarsAdapter.getById(carExisting);
 
-            assertThat(car.isPresent()).isTrue();
+            assertThat(car).isPresent();
         }
 
         @Test
@@ -111,7 +111,7 @@ public class StoreCarsAdapterIT {
         void get_by_id_not_existing_work() {
             var car = storeCarsAdapter.getById(UUID.randomUUID());
 
-            assertThat(car.isEmpty()).isTrue();
+            assertThat(car).isNotPresent();
         }
     }
 }

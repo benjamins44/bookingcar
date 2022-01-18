@@ -28,7 +28,7 @@ public class StoreBookedCarsAdapterIT {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ZoneId timeZone = ZoneId.systemDefault();
-    private static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+    private final static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
     @Autowired
     private StoreBookedCarsAdapter storeBookedCarsAdapter;
@@ -84,7 +84,7 @@ public class StoreBookedCarsAdapterIT {
                     .build();
             var bookedCars = storeBookedCarsAdapter.getAll(period);
 
-            assertThat(bookedCars.size()).isEqualTo(0);
+            assertThat(bookedCars.size()).isZero();
         }
     }
 
@@ -127,7 +127,7 @@ public class StoreBookedCarsAdapterIT {
                     .build();
             var bookedCars = storeBookedCarsAdapter.getBookedCarByCarAndPeriod(CarFactory.build().withId(carExisting), period);
 
-            assertThat(bookedCars.size()).isEqualTo(0);
+            assertThat(bookedCars.size()).isZero();
         }
     }
 

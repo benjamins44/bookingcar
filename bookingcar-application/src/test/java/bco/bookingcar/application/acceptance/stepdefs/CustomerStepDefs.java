@@ -28,7 +28,7 @@ public class CustomerStepDefs implements En {
         });
         Given("^I am authenticated as \"([^\"]*)\"$", (String idCustomer) -> {
             Optional<Customer> customer = storeCustomers.getById(UUID.fromString(idCustomer));
-            assertThat(customer.isPresent()).isTrue();
+            assertThat(customer).isPresent();
             testContext.setCustomer(customer);
         });
     }

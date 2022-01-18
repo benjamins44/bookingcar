@@ -3,14 +3,17 @@ package bco.bookingcar.domain.unit.customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import bco.bookingcar.domain.unit.car.CarFactory;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayName("Customer entity invariant tests")
-public class CustomerTest {
+class CustomerTest {
     @Test
     @DisplayName("Check valid object")
     void check_valid_object() {
-        CustomerFactory.build();
+        assertThatCode(CustomerFactory::build).doesNotThrowAnyException();
     }
 
     @Test

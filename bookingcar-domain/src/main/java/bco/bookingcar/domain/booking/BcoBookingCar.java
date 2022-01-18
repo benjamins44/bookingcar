@@ -30,7 +30,7 @@ public class BcoBookingCar implements BookingCar {
     }
 
     @Override
-    public Boolean carIsBookedOn(Car car, Period period) {
+    public boolean carIsBookedOn(Car car, Period period) {
         return !storeBookedCars.getBookedCarByCarAndPeriod(car, period).isEmpty();
     }
 }

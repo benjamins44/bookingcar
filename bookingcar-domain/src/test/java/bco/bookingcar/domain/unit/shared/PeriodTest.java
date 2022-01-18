@@ -1,6 +1,8 @@
 package bco.bookingcar.domain.unit.shared;
 
 import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.domain.unit.customer.CustomerFactory;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayName("Period value object")
@@ -16,6 +19,12 @@ public class PeriodTest {
     @Nested
     @DisplayName("invariant tests")
     class InvariantTest {
+
+        @Test
+        @DisplayName("Check valid object")
+        void check_valid_object() {
+            assertThatCode(PeriodFactory::build).doesNotThrowAnyException();
+        }
 
         @Test
         @DisplayName("Start date time must not be null")

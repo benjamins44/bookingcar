@@ -20,7 +20,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @Import(PostgresqlContainerConfiguration.class)
 public class StoreCustomersAdapterIT {
 
-    private static UUID customerExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
+    private final static UUID customerExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
 
     @Autowired
     private StoreCustomersAdapter storeCustomersAdapter;
@@ -48,7 +48,7 @@ public class StoreCustomersAdapterIT {
         void get_by_id_existing_work() {
             var customer = storeCustomersAdapter.getById(customerExisting);
 
-            assertThat(customer.isPresent()).isTrue();
+            assertThat(customer).isPresent();
         }
 
         @Test
@@ -56,7 +56,7 @@ public class StoreCustomersAdapterIT {
         void get_by_id_not_existing_work() {
             var customer = storeCustomersAdapter.getById(UUID.randomUUID());
 
-            assertThat(customer.isEmpty()).isTrue();
+            assertThat(customer).isNotPresent();
         }
     }
 }
