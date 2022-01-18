@@ -153,7 +153,6 @@ public class BookingCarManagerTest {
             var idCar = cars.get(0).getId();
             bookingCarManager.book(idCar, idCustomer, period);
 
-
             assertThat(storeBookedCars.getAll(period).stream().anyMatch(bookedCar ->
                             bookedCar.getIdCustomer().equals(idCustomer) &&
                                     bookedCar.getIdCar().equals(idCar)
