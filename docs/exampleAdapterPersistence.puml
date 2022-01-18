@@ -1,0 +1,23 @@
+@startuml
+
+package domain {
+  interface StoreCars {
+    +Car add(Car car)
+    +Car getById(UUID id)
+  }
+}
+
+package infrastructure {
+
+  class StoreCarsAdapter {
+    +Car add(Car car)
+    Optional<Car> getById(UUID id)
+  }
+  interface CarRepository {
+    CarEntity save(CarEntity carEntity)
+    Optional<CarEntity> findById(UUID id)
+  }
+  StoreCarsAdapter --> CarRepository
+  StoreCarsAdapter --|> StoreCars
+}
+@enduml

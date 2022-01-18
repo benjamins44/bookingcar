@@ -2,7 +2,6 @@ package bco.bookingcar.infrastructure.secondary.adapter;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -79,14 +78,7 @@ public class StoreCarsAdapterIT {
         @DisplayName("Get all car persistence works")
         void save_all_cars_work() {
             var cars = storeCarsAdapter.saveAll(
-                    List.of(Car.builder()
-                        .id(carExisting)
-                        .brand("new brand")
-                        .model("new model")
-                        .numberOfPlace(5)
-                        .category(CarCategory.MINIVAN)
-                        .build())
-            );
+                    List.of(Car.builder().id(carExisting).brand("new brand").model("new model").numberOfPlace(5).category(CarCategory.MINIVAN).build()));
 
             assertThat(cars.get(0).getBrand()).isEqualTo("new brand");
         }
