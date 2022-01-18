@@ -8,6 +8,7 @@ import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.CustomerManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.*;
+import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class BcoBookingCarManager implements BookingCarManager {
     private StoreCars storeCars;
     private CarManager carManager;
     private CustomerManager customerManager;
+    private BookingCarEventsDispatcher bookingCarEventsDispatcher;
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
@@ -42,7 +44,9 @@ public class BcoBookingCarManager implements BookingCarManager {
     public BookedCar book(UUID carId, UUID customerId, Period period) throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
         var car = carManager.findById(carId);
         var customer = customerManager.findById(customerId);
-        return bookingCar.book(car, period, customer);
+        var bookedCar = bookingCar.book(car, period, customer);
+        bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
+        return bookedCar;
     }
 }
 

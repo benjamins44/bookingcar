@@ -1,11 +1,13 @@
 package bco.bookingcar.domain.ports;
 
+import bco.bookingcar.annotation.DomainRepository;
 import bco.bookingcar.domain.car.Car;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@DomainRepository
 public interface StoreCars {
     Car add(Car car);
 

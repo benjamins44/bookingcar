@@ -16,15 +16,27 @@ class bco.bookingcar.domain.booking.BookedCar {
 	{field} -id : java.util.UUID
 	{field} -idCar : java.util.UUID
 	{field} -idCustomer : java.util.UUID
+	{method} +addEvent ( paramBookedCarCreatedEvent1 : bco.bookingcar.domain.booking.BookedCarCreatedEvent ) : bco.bookingcar.domain.booking.BookedCar
 	{method}  {static} +builder () : bco.bookingcar.domain.booking.BookedCar$BookedCarBuilder
 	{method} #canEqual ( paramObject1 : Object ) : boolean
 	{method} +equals ( paramObject1 : Object ) : boolean
 	{method} +hashCode () : int
 	{method} +toString () : String
+	{method} +withCreatedEvents ( paramList1 : java.util.List ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withIdCar ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withIdCustomer ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCar
 	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCar
+}
+
+
+class bco.bookingcar.domain.booking.BookedCarCreatedEvent {
+	{field} -id : java.util.UUID
+	{method}  {static} +builder () : bco.bookingcar.domain.booking.BookedCarCreatedEvent$BookedCarCreatedEventBuilder
+	{method} +withCar ( paramCar1 : bco.bookingcar.domain.car.Car ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
+	{method} +withCustomer ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
+	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
+	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
 }
 
 
@@ -72,6 +84,12 @@ class bco.bookingcar.domain.customer.Customer {
 }
 
 
+interface bco.bookingcar.domain.ports.BookingCarEventsDispatcher {
+	{method}  {abstract} +dispatch ( paramList1 : java.util.List ) : void
+	{method}  {abstract} +hasDispatchedEventWithCarCustomerPeriod ( paramUUID1 : java.util.UUID , paramUUID2 : java.util.UUID , paramPeriod3 : bco.bookingcar.domain.shared.Period ) : boolean
+}
+
+
 interface bco.bookingcar.domain.ports.StoreBookedCars {
 	{method}  {abstract} +add ( paramBookedCar1 : bco.bookingcar.domain.booking.BookedCar ) : bco.bookingcar.domain.booking.BookedCar
 	{method}  {abstract} +getAll ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : java.util.List
@@ -113,7 +131,11 @@ class bco.bookingcar.domain.shared.Period {
 bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCars : storeBookedCars
 bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreCars : storeCars
 bco.bookingcar.domain.booking.BcoBookingCar ..|>  bco.bookingcar.domain.BookingCar
+bco.bookingcar.domain.booking.BookedCar "1" o-- "0..*"  bco.bookingcar.domain.booking.BookedCarCreatedEvent : createdEvents
 bco.bookingcar.domain.booking.BookedCar -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.car.Car : car
+bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.customer.Customer : customer
+bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.shared.Period : period
 bco.bookingcar.domain.car.Car -->  bco.bookingcar.domain.car.CarCategory : category
 
 hide methods

@@ -1,5 +1,6 @@
 package bco.bookingcar.domain.unit;
 
+import bco.bookingcar.domain.unit.booking.BookingCarEventsDispatcherParameterResolver;
 import bco.bookingcar.domain.unit.booking.StoreBookedCarParameterResolver;
 import bco.bookingcar.domain.unit.car.StoreCarsParameterResolver;
 import bco.bookingcar.domain.unit.customer.StoreCustomersParameterResolver;
@@ -15,7 +16,8 @@ import java.lang.annotation.Target;
 @ExtendWith({
         StoreCarsParameterResolver.class,
         StoreCustomersParameterResolver.class,
-        StoreBookedCarParameterResolver.class
+        StoreBookedCarParameterResolver.class,
+        BookingCarEventsDispatcherParameterResolver.class
 })
 public @interface InjectDomainObjects {
 }

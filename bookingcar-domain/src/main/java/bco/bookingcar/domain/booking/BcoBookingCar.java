@@ -21,12 +21,21 @@ public class BcoBookingCar implements BookingCar {
         if (carIsBookedOn(car, period)) {
             throw new CarNotAvailableException();
         }
+
         var newBookedCar = BookedCar.builder()
                 .idCar(car.getId())
                 .idCustomer(customer.getId())
                 .period(period)
                 .build();
-        return storeBookedCars.add(newBookedCar);
+
+        var bookedCar = storeBookedCars.add(newBookedCar);
+
+        return bookedCar.addEvent(
+                BookedCarCreatedEvent.builder()
+                .car(car)
+                .customer(customer)
+                .period(period)
+                .build());
     }
 
     @Override

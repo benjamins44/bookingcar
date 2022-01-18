@@ -4,6 +4,7 @@ import bco.bookingcar.application.booking.BcoBookingCarManager;
 import bco.bookingcar.application.car.BcoCarManager;
 import bco.bookingcar.application.customer.BcoCustomerManager;
 import bco.bookingcar.domain.booking.BcoBookingCar;
+import bco.bookingcar.domain.ports.stubs.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.stubs.InMemoryStoreBookedCars;
 import bco.bookingcar.domain.ports.stubs.InMemoryStoreCars;
 import bco.bookingcar.domain.ports.stubs.InMemoryStoreCustomers;
@@ -19,6 +20,7 @@ public class CustomPicoFactory extends PicoFactory {
         addClass(InMemoryStoreCustomers.class);
         addClass(InMemoryStoreCars.class);
         addClass(InMemoryStoreBookedCars.class);
+        addClass(InMemoryBookingCarEventsDispatcher.class);
     }
 }
 

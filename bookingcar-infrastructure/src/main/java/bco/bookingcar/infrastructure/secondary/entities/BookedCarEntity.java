@@ -71,7 +71,8 @@ public class BookedCarEntity {
                 Period.builder()
                         .startDateTime(this.getStartDateTime())
                         .endDateTime(this.getEndDateTime())
-                        .build()
+                        .build(),
+                null
         );
     }
 

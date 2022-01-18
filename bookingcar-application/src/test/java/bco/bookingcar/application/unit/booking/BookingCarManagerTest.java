@@ -10,6 +10,7 @@ import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.car.Car;
+import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
@@ -38,14 +39,16 @@ public class BookingCarManagerTest {
     private StoreCars storeCars;
     private StoreBookedCars storeBookedCars;
     private StoreCustomers storeCustomers;
+    private BookingCarEventsDispatcher bookingCarEventsDispatcher;
 
     @BeforeEach
-    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers) {
+    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
         this.storeBookedCars = storeBookedCars;
         this.storeCars = storeCars;
         this.storeCustomers = storeCustomers;
+        this.bookingCarEventsDispatcher = bookingCarEventsDispatcher;
         BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCars);
-        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers));
+        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers), bookingCarEventsDispatcher);
     }
 
     @Nested
@@ -173,6 +176,15 @@ public class BookingCarManagerTest {
 
             assertThatThrownBy(() -> bookingCarManager.book(car.getId(), idCustomer, period))
                     .isInstanceOf(CarNotAvailableException.class);
+        }
+
+        @Test
+        void an_event_is_dispatched_to_anywhere() throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
+            var period = PeriodFactory.build();
+            var idCar = cars.get(0).getId();
+            var bookedCar = bookingCarManager.book(idCar, idCustomer, period);
+
+            assertThat(bookingCarEventsDispatcher.hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
         }
     }
 }
