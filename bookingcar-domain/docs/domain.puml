@@ -86,7 +86,6 @@ class bco.bookingcar.domain.customer.Customer {
 
 interface bco.bookingcar.domain.ports.BookingCarEventsDispatcher {
 	{method}  {abstract} +dispatch ( paramList1 : java.util.List ) : void
-	{method}  {abstract} +hasDispatchedEventWithCarCustomerPeriod ( paramUUID1 : java.util.UUID , paramUUID2 : java.util.UUID , paramPeriod3 : bco.bookingcar.domain.shared.Period ) : boolean
 }
 
 

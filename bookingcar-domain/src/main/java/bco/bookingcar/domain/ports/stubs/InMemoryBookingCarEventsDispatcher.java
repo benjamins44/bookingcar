@@ -18,7 +18,6 @@ public class InMemoryBookingCarEventsDispatcher implements BookingCarEventsDispa
 
     private final List<BookedCarCreatedEvent> events = new ArrayList<>();
 
-    @Override
     public boolean hasDispatchedEventWithCarCustomerPeriod(UUID idCar, UUID idCustomer, Period period) {
         return events.stream()
                 .anyMatch(event -> idCar.equals(event.getCar().getId())

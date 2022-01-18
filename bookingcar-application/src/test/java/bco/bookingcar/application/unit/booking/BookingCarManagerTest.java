@@ -14,6 +14,7 @@ import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
+import bco.bookingcar.domain.ports.stubs.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;
@@ -182,9 +183,9 @@ public class BookingCarManagerTest {
         void an_event_is_dispatched_to_anywhere() throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
-            var bookedCar = bookingCarManager.book(idCar, idCustomer, period);
+            bookingCarManager.book(idCar, idCustomer, period);
 
-            assertThat(bookingCarEventsDispatcher.hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
+            assertThat(((InMemoryBookingCarEventsDispatcher)bookingCarEventsDispatcher).hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
         }
     }
 }
