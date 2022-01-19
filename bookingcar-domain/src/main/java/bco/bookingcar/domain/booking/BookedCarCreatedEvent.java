@@ -1,7 +1,5 @@
 package bco.bookingcar.domain.booking;
 
-import java.util.UUID;
-
 import bco.bookingcar.annotation.DomainEvent;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
@@ -9,6 +7,8 @@ import bco.bookingcar.domain.shared.Period;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.With;
+
+import java.util.UUID;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -27,7 +27,7 @@ public class BookedCarCreatedEvent {
         notNull(car, "The car is mandatory");
         notNull(period, "The startDate is mandatory");
 
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.car = car;
         this.customer = customer;
         this.period = period;
