@@ -1,19 +1,19 @@
-package bco.bookingcar.domain.ports.stubs;
+package bco.bookingcar.domain.ports.fakes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import bco.bookingcar.annotation.Stub;
+import bco.bookingcar.annotation.Fake;
 import bco.bookingcar.domain.booking.BookedCarCreatedEvent;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.shared.Period;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @Builder
 @NoArgsConstructor
-@Stub
+@Fake
 public class InMemoryBookingCarEventsDispatcher implements BookingCarEventsDispatcher {
 
     private final List<BookedCarCreatedEvent> events = new ArrayList<>();

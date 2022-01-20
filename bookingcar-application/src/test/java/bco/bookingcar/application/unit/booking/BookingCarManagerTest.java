@@ -1,11 +1,9 @@
 package bco.bookingcar.application.unit.booking;
 
+import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.booking.BcoBookingCarManager;
 import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.customer.BcoCustomerManager;
-import bco.bookingcar.application.customer.CustomerNotFoundException;
-import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
@@ -14,13 +12,14 @@ import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
-import bco.bookingcar.domain.ports.stubs.InMemoryBookingCarEventsDispatcher;
+import bco.bookingcar.domain.ports.fakes.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
+import bco.bookingcar.exceptions.BookingCarException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -152,7 +151,7 @@ public class BookingCarManagerTest {
         }
 
         @Test
-        void customer_can_book_an_available_car() throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
+        void customer_can_book_an_available_car() throws BookingCarException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
             bookingCarManager.book(idCar, idCustomer, period);
@@ -180,12 +179,12 @@ public class BookingCarManagerTest {
         }
 
         @Test
-        void an_event_is_dispatched_to_anywhere() throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
+        void an_event_is_dispatched_to_anywhere() throws BookingCarException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
             bookingCarManager.book(idCar, idCustomer, period);
 
-            assertThat(((InMemoryBookingCarEventsDispatcher)bookingCarEventsDispatcher).hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
+            assertThat(((InMemoryBookingCarEventsDispatcher) bookingCarEventsDispatcher).hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
         }
     }
 }

@@ -2,11 +2,7 @@ package bco.bookingcar.application.booking;
 
 import bco.bookingcar.annotation.DTO;
 import bco.bookingcar.domain.shared.Period;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.With;
+import lombok.*;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -20,7 +16,7 @@ public class SearchAvailableCarsCriterias {
     private Period period;
 
     public SearchAvailableCarsCriterias(Period period) {
-        notNull(period, "The startDate is mandatory");
+        notNull(period, "The period is mandatory");
 
         this.period = period;
     }

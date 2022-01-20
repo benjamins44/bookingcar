@@ -1,6 +1,6 @@
-package bco.bookingcar.domain.ports.stubs;
+package bco.bookingcar.domain.ports.fakes;
 
-import bco.bookingcar.annotation.Stub;
+import bco.bookingcar.annotation.Fake;
 import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Builder
 @NoArgsConstructor
-@Stub
+@Fake
 public class InMemoryStoreCustomers implements StoreCustomers {
 
     private final Map<UUID, Customer> customerMap = new HashMap<>();

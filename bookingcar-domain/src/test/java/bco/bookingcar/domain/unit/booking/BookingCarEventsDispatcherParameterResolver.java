@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
-import bco.bookingcar.domain.ports.stubs.InMemoryBookingCarEventsDispatcher;
+import bco.bookingcar.domain.ports.fakes.InMemoryBookingCarEventsDispatcher;
 
 public class BookingCarEventsDispatcherParameterResolver implements ParameterResolver {
     @Override

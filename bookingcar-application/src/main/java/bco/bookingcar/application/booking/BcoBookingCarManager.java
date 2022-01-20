@@ -1,13 +1,14 @@
 package bco.bookingcar.application.booking;
 
 import bco.bookingcar.annotation.ApplicationService;
-import bco.bookingcar.application.car.CarNotFoundException;
-import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.car.CarNotFoundException;
+import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.BookingCar;
-import bco.bookingcar.domain.booking.*;
+import bco.bookingcar.domain.booking.BookedCar;
+import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
@@ -29,15 +30,15 @@ public class BcoBookingCarManager implements BookingCarManager {
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
-            return storeCars
-                    .getAll()
-                    .stream()
-                    .filter(car -> !bookingCar.carIsBookedOn(car, criterias.getPeriod()))
-                    .map(car -> AvailableCar.builder()
-                            .idCar(car.getId())
-                            .period(criterias.getPeriod())
-                            .build()
-                    ).collect(Collectors.toList());
+        return storeCars
+                .getAll()
+                .stream()
+                .filter(car -> !bookingCar.carIsBookedOn(car, criterias.getPeriod()))
+                .map(car -> AvailableCar.builder()
+                        .car(car)
+                        .period(criterias.getPeriod())
+                        .build()
+                ).collect(Collectors.toList());
     }
 
     @Override

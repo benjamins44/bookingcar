@@ -1,6 +1,6 @@
-package bco.bookingcar.domain.ports.stubs;
+package bco.bookingcar.domain.ports.fakes;
 
-import bco.bookingcar.annotation.Stub;
+import bco.bookingcar.annotation.Fake;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.ports.StoreBookedCars;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Builder
 @NoArgsConstructor
-@Stub
+@Fake
 public class InMemoryStoreBookedCars implements StoreBookedCars {
 
     private final Map<UUID, BookedCar> bookedCarMap = new HashMap<>();

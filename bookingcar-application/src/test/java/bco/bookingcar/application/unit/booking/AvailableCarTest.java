@@ -8,9 +8,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 @DisplayName("AvailableCar entity invariant tests")
 class AvailableCarTest {
     @Test
-    @DisplayName("Id car must not be null")
+    @DisplayName("Car must not be null")
     void id_car_must_not_be_null() {
-        assertThatThrownBy(() -> AvailableCarFactory.build().withIdCar(null)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> AvailableCarFactory.build().withCar(null)).isInstanceOf(NullPointerException.class);
     }
 
     @Test

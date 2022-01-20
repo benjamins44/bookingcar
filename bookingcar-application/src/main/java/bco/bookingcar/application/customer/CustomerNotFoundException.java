@@ -1,4 +1,6 @@
 package bco.bookingcar.application.customer;
 
-public class CustomerNotFoundException extends Exception {
+import bco.bookingcar.exceptions.BookingCarException;
+
+public class CustomerNotFoundException extends BookingCarException {
 }

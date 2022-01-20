@@ -1,4 +1,6 @@
 package bco.bookingcar.domain.booking;
 
-public class CarNotAvailableException extends Exception {
+import bco.bookingcar.exceptions.BookingCarException;
+
+public class CarNotAvailableException extends BookingCarException {
 }

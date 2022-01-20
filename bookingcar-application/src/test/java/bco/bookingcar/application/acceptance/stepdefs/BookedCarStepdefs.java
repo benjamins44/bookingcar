@@ -1,9 +1,8 @@
 package bco.bookingcar.application.acceptance.stepdefs;
 
 import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.application.booking.AvailableCar;
-import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
+import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
@@ -51,7 +50,7 @@ public class BookedCarStepdefs implements En {
         Then("^The car \"([^\"]*)\" is available$", (String idCar) ->
                 assertThat(
                         testContext.getAvailableCars().stream()
-                                .map(AvailableCar::getIdCar)
+                                .map(availableCar -> availableCar.getCar().getId())
                                 .anyMatch(id -> UUID.fromString(idCar).equals(id))
                 ).isTrue()
         );

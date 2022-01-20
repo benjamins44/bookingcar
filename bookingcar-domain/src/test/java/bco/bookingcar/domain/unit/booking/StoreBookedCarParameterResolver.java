@@ -1,7 +1,7 @@
 package bco.bookingcar.domain.unit.booking;
 
 import bco.bookingcar.domain.ports.StoreBookedCars;
-import bco.bookingcar.domain.ports.stubs.InMemoryStoreBookedCars;
+import bco.bookingcar.domain.ports.fakes.InMemoryStoreBookedCars;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
