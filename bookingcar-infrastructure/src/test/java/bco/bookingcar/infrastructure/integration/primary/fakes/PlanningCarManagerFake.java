@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.fakes;
+package bco.bookingcar.infrastructure.integration.primary.fakes;
 
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.application.planning.PlanningCar;

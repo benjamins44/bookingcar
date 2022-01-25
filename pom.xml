@@ -36,6 +36,7 @@
         <springdoc.version>1.6.4</springdoc.version>
         <testcontainer.version>1.16.2</testcontainer.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <karate.version>1.1.0</karate.version>
     </properties>
 
     <dependencies>

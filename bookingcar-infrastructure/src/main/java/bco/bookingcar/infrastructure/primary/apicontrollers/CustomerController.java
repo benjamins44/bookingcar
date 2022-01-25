@@ -6,6 +6,8 @@ import bco.bookingcar.infrastructure.primary.resources.CustomerResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping(value = "/customers")
 @Tag(name = "Customers", description = "Operations available on Customers")
+@Slf4j
 public class CustomerController {
     private final CustomerManager customerManager;
 
@@ -34,6 +37,7 @@ public class CustomerController {
 
     @ExceptionHandler(BookingCarException.class)
     private void handleCustomerNotFoundException(HttpServletResponse response, BookingCarException exception) throws IOException {
+        log.error("The customer does not exist", exception.getMessage());
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
     }
 }

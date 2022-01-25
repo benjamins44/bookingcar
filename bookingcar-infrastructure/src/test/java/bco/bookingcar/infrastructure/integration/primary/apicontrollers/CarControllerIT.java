@@ -1,11 +1,11 @@
-package bco.bookingcar.infrastructure.primary.apicontrollers;
+package bco.bookingcar.infrastructure.integration.primary.apicontrollers;
 
-import bco.bookingcar.application.CustomerManager;
-import bco.bookingcar.domain.customer.Customer;
-import bco.bookingcar.domain.unit.customer.CustomerFactory;
+import bco.bookingcar.application.CarManager;
+import bco.bookingcar.domain.car.Car;
+import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.infrastructure.ReservationVoituresApplication;
-import bco.bookingcar.infrastructure.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.primary.fakes.CustomerManagerFake;
+import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
+import bco.bookingcar.infrastructure.integration.primary.fakes.CarManagerFake;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,43 +28,45 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ReservationVoituresApplication.class,
         ApplicationConfigurationTest.class
 })
-public class CustomerControllerIT {
+public class CarControllerIT {
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    private CustomerManager customerManager;
+    private CarManager carManager;
 
     @BeforeEach
     void setup() {
-        this.setCustomerToManager(null);
+        this.setCarToManager(null);
     }
 
     @Test
-    void can_get_customer_by_id() throws Exception {
-        var customer = CustomerFactory.build().withId(UUID.randomUUID());
-        this.setCustomerToManager(customer);
+    void can_get_car_by_id() throws Exception {
+        var car = CarFactory.build().withId(UUID.randomUUID());
+        this.setCarToManager(car);
 
         this.mvc.perform(
-                        get(String.format("/customers/%s", customer.getId()))
+                        get(String.format("/cars/%s", car.getId()))
                                 .accept(APPLICATION_JSON)
                                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(customer.getId().toString())))
-                .andExpect(jsonPath("$.firstname", is(customer.getFirstname())))
-                .andExpect(jsonPath("$.lastname", is(customer.getLastname())));
+                .andExpect(jsonPath("$.id", is(car.getId().toString())))
+                .andExpect(jsonPath("$.brand", is(car.getBrand())))
+                .andExpect(jsonPath("$.model", is(car.getModel())))
+                .andExpect(jsonPath("$.category", is(car.getCategory().name())))
+                .andExpect(jsonPath("$.numberOfPlace", is(car.getNumberOfPlace())));
     }
 
     @Test
-    void receive_bad_request_if_customer_not_found() throws Exception {
+    void receive_bad_request_if_car_not_found() throws Exception {
         this.mvc.perform(
-                        get(String.format("/customers/%s", UUID.randomUUID()))
+                        get(String.format("/cars/%s", UUID.randomUUID()))
                                 .accept(APPLICATION_JSON)
                                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
-    private void setCustomerToManager(Customer customer) {
-        ((CustomerManagerFake) customerManager).setCustomer(customer);
+    private void setCarToManager(Car car) {
+        ((CarManagerFake) carManager).setCar(car);
     }
 }

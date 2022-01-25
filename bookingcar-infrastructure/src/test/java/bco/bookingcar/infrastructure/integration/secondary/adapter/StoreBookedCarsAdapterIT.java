@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.secondary.adapter;
+package bco.bookingcar.infrastructure.integration.secondary.adapter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -12,18 +12,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.domain.unit.booking.BookedCarFactory;
 import bco.bookingcar.domain.unit.car.CarFactory;
-import bco.bookingcar.infrastructure.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.secondary.adapter.StoreBookedCarsAdapter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
-@Import(PostgresqlContainerConfiguration.class)
+@ActiveProfiles("primary-integration-test")
 public class StoreBookedCarsAdapterIT {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

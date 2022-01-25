@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.fakes;
+package bco.bookingcar.infrastructure.integration.primary.fakes;
 
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.car.CarNotFoundException;

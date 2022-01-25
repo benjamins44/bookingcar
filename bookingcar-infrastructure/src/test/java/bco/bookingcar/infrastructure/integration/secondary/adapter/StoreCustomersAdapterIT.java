@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.secondary.adapter;
+package bco.bookingcar.infrastructure.integration.secondary.adapter;
 
 import java.util.UUID;
 
@@ -8,16 +8,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
-import bco.bookingcar.infrastructure.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.secondary.adapter.StoreCustomersAdapter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
-@Import(PostgresqlContainerConfiguration.class)
+@ActiveProfiles("primary-integration-test")
 public class StoreCustomersAdapterIT {
 
     private final static UUID customerExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");

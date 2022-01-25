@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.apicontrollers;
+package bco.bookingcar.infrastructure.integration.primary.apicontrollers;
 
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.application.planning.PlanningCar;
@@ -6,8 +6,8 @@ import bco.bookingcar.application.unit.booking.PlanningBookedCarFactory;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 import bco.bookingcar.infrastructure.ReservationVoituresApplication;
-import bco.bookingcar.infrastructure.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.primary.fakes.PlanningCarManagerFake;
+import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
+import bco.bookingcar.infrastructure.integration.primary.fakes.PlanningCarManagerFake;
 import bco.bookingcar.utils.ZonedDateUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

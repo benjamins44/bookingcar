@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.secondary.configuration;
+package bco.bookingcar.infrastructure.integration.secondary.configuration;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.testcontainers.containers.Network;
