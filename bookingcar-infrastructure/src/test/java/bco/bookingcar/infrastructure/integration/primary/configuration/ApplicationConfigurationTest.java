@@ -1,9 +1,5 @@
 package bco.bookingcar.infrastructure.integration.primary.configuration;
 
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
-
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.CustomerManager;
@@ -12,9 +8,10 @@ import bco.bookingcar.infrastructure.integration.primary.fakes.BookingCarManager
 import bco.bookingcar.infrastructure.integration.primary.fakes.CarManagerFake;
 import bco.bookingcar.infrastructure.integration.primary.fakes.CustomerManagerFake;
 import bco.bookingcar.infrastructure.integration.primary.fakes.PlanningCarManagerFake;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-@Profile("primary-integration-test")
 public class ApplicationConfigurationTest {
 
     @Bean

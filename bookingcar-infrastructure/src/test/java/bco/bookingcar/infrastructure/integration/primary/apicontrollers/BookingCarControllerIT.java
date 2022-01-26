@@ -8,15 +8,14 @@ import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 import bco.bookingcar.exceptions.BookingCarException;
-import bco.bookingcar.infrastructure.ReservationVoituresApplication;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
 import bco.bookingcar.infrastructure.integration.primary.fakes.BookingCarManagerFake;
+import bco.bookingcar.infrastructure.primary.apicontrollers.BookingCarController;
 import bco.bookingcar.utils.ZonedDateUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,12 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import({
-        ReservationVoituresApplication.class,
-        ApplicationConfigurationTest.class
-})
+@Import({ApplicationConfigurationTest.class})
+@WebMvcTest(BookingCarController.class)
 public class BookingCarControllerIT {
     @Autowired
     private MockMvc mvc;

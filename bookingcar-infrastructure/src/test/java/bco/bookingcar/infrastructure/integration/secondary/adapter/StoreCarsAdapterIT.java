@@ -1,28 +1,25 @@
 package bco.bookingcar.infrastructure.integration.secondary.adapter;
 
-import java.util.List;
-import java.util.UUID;
-
+import bco.bookingcar.domain.car.Car;
+import bco.bookingcar.domain.car.CarCategory;
+import bco.bookingcar.domain.unit.car.CarFactory;
+import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.secondary.adapter.StoreCarsAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import bco.bookingcar.domain.car.Car;
-import bco.bookingcar.domain.car.CarCategory;
-import bco.bookingcar.domain.unit.car.CarFactory;
-import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
-import bco.bookingcar.infrastructure.secondary.adapter.StoreCarsAdapter;
+import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
-@ActiveProfiles("primary-integration-test")
 public class StoreCarsAdapterIT {
 
     private final static UUID carExisting = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
@@ -58,7 +55,7 @@ public class StoreCarsAdapterIT {
     @Nested
     @SpringBootTest
     @Import(PostgresqlContainerConfiguration.class)
-    @Sql(scripts = { "classpath:IT_datas.sql" }, executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = {"classpath:IT_datas.sql"}, executionPhase = BEFORE_TEST_METHOD)
     @DisplayName("Test get all cars persistence")
     class GetAllCarTest {
         @Test
@@ -73,7 +70,7 @@ public class StoreCarsAdapterIT {
     @Nested
     @SpringBootTest
     @Import(PostgresqlContainerConfiguration.class)
-    @Sql(scripts = { "classpath:IT_datas.sql" }, executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = {"classpath:IT_datas.sql"}, executionPhase = BEFORE_TEST_METHOD)
     @DisplayName("Test save all cars persistence")
     class SaveAllCarTest {
         @Test
@@ -89,7 +86,7 @@ public class StoreCarsAdapterIT {
     @Nested
     @SpringBootTest
     @Import(PostgresqlContainerConfiguration.class)
-    @Sql(scripts = { "classpath:IT_datas.sql" }, executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = {"classpath:IT_datas.sql"}, executionPhase = BEFORE_TEST_METHOD)
     @DisplayName("Test get car by id persistence")
     class GetByIdTest {
         @Test

@@ -3,14 +3,13 @@ package bco.bookingcar.infrastructure.integration.primary.apicontrollers;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.unit.car.CarFactory;
-import bco.bookingcar.infrastructure.ReservationVoituresApplication;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
 import bco.bookingcar.infrastructure.integration.primary.fakes.CarManagerFake;
+import bco.bookingcar.infrastructure.primary.apicontrollers.CarController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,12 +21,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import({
-        ReservationVoituresApplication.class,
-        ApplicationConfigurationTest.class
-})
+@Import({ApplicationConfigurationTest.class})
+@WebMvcTest(CarController.class)
 public class CarControllerIT {
     @Autowired
     private MockMvc mvc;

@@ -14,6 +14,6 @@ public class ZonedDateUtils {
     }
 
     public static String toString(ZonedDateTime date) {
-        return formatter.format(date);
+        return formatter.format(date.toLocalDateTime().atZone(timeZone));
     }
 }

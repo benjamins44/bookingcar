@@ -1,31 +1,28 @@
 package bco.bookingcar.infrastructure.integration.secondary.adapter;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.UUID;
-
+import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.domain.unit.booking.BookedCarFactory;
+import bco.bookingcar.domain.unit.car.CarFactory;
+import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
+import bco.bookingcar.infrastructure.secondary.adapter.StoreBookedCarsAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.domain.unit.booking.BookedCarFactory;
-import bco.bookingcar.domain.unit.car.CarFactory;
-import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
-import bco.bookingcar.infrastructure.secondary.adapter.StoreBookedCarsAdapter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
-@ActiveProfiles("primary-integration-test")
 public class StoreBookedCarsAdapterIT {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -50,7 +47,7 @@ public class StoreBookedCarsAdapterIT {
     @Nested
     @SpringBootTest
     @Import(PostgresqlContainerConfiguration.class)
-    @Sql(scripts = { "classpath:IT_datas.sql" }, executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = {"classpath:IT_datas.sql"}, executionPhase = BEFORE_TEST_METHOD)
     @DisplayName("Test get all by period persistence")
     class GetAllByPeriodTest {
         @Test
@@ -93,7 +90,7 @@ public class StoreBookedCarsAdapterIT {
     @Nested
     @SpringBootTest
     @Import(PostgresqlContainerConfiguration.class)
-    @Sql(scripts = { "classpath:IT_datas.sql" }, executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = {"classpath:IT_datas.sql"}, executionPhase = BEFORE_TEST_METHOD)
     @DisplayName("Test get all by period and id car persistence")
     class GetAllByPeriodTestAndIdCar {
         @Test
