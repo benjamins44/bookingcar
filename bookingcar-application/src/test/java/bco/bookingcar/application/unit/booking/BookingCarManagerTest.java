@@ -19,7 +19,9 @@ import bco.bookingcar.domain.unit.booking.StoreBookedCarUtils;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
-import bco.bookingcar.exceptions.BookingCarException;
+import bco.bookingcar.exceptions.BusinessException;
+import bco.bookingcar.ports.TransactionManager;
+import bco.bookingcar.ports.fakes.InMemoryTransactionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -40,15 +42,16 @@ public class BookingCarManagerTest {
     private StoreBookedCars storeBookedCars;
     private StoreCustomers storeCustomers;
     private BookingCarEventsDispatcher bookingCarEventsDispatcher;
+    private TransactionManager transactionManager;
 
     @BeforeEach
-    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
+    void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers, BookingCarEventsDispatcher bookingCarEventsDispatcher, TransactionManager transactionManager) {
         this.storeBookedCars = storeBookedCars;
         this.storeCars = storeCars;
         this.storeCustomers = storeCustomers;
         this.bookingCarEventsDispatcher = bookingCarEventsDispatcher;
         BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCars);
-        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers), bookingCarEventsDispatcher);
+        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoCustomerManager(storeCustomers), bookingCarEventsDispatcher, transactionManager);
     }
 
     @Nested
@@ -151,7 +154,7 @@ public class BookingCarManagerTest {
         }
 
         @Test
-        void customer_can_book_an_available_car() throws BookingCarException {
+        void customer_can_book_an_available_car() throws BusinessException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
             bookingCarManager.book(idCar, idCustomer, period);
@@ -179,12 +182,21 @@ public class BookingCarManagerTest {
         }
 
         @Test
-        void an_event_is_dispatched_to_anywhere() throws BookingCarException {
+        void an_event_is_dispatched_to_anywhere() throws BusinessException {
             var period = PeriodFactory.build();
             var idCar = cars.get(0).getId();
             bookingCarManager.book(idCar, idCustomer, period);
 
             assertThat(((InMemoryBookingCarEventsDispatcher) bookingCarEventsDispatcher).hasDispatchedEventWithCarCustomerPeriod(idCar, idCustomer, period)).isTrue();
+        }
+
+        @Test
+        void a_new_transacation_is_used_to_book_the_car() throws BusinessException {
+            var period = PeriodFactory.build();
+            var idCar = cars.get(0).getId();
+            bookingCarManager.book(idCar, idCustomer, period);
+
+            assertThat(((InMemoryTransactionManager) transactionManager).hasUsedATransaction()).isTrue();
         }
     }
 }

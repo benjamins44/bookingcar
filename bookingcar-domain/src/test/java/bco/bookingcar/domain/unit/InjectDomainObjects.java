@@ -4,6 +4,7 @@ import bco.bookingcar.domain.unit.booking.BookingCarEventsDispatcherParameterRes
 import bco.bookingcar.domain.unit.booking.StoreBookedCarParameterResolver;
 import bco.bookingcar.domain.unit.car.StoreCarsParameterResolver;
 import bco.bookingcar.domain.unit.customer.StoreCustomersParameterResolver;
+import bco.bookingcar.ports.TransactionManagerParameterResolver;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;
@@ -17,7 +18,8 @@ import java.lang.annotation.Target;
         StoreCarsParameterResolver.class,
         StoreCustomersParameterResolver.class,
         StoreBookedCarParameterResolver.class,
-        BookingCarEventsDispatcherParameterResolver.class
+        BookingCarEventsDispatcherParameterResolver.class,
+        TransactionManagerParameterResolver.class
 })
 public @interface InjectDomainObjects {
 }

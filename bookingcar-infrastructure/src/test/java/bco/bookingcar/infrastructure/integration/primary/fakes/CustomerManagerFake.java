@@ -12,7 +12,7 @@ public class CustomerManagerFake implements CustomerManager {
 
     @Override
     public Customer findById(UUID customerId) throws CustomerNotFoundException {
-        return customer.orElseThrow(CustomerNotFoundException::new);
+        return customer.orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
     public void setCustomer(Customer customer) {

@@ -107,7 +107,7 @@ public class BookingCarControllerIT {
     @Test
     void can_receive_exception_when_booked_a_car() throws Exception {
         var period = PeriodFactory.build();
-        setBookingCarException(new CarNotAvailableException());
+        setBookingCarException(new CarNotAvailableException(UUID.randomUUID()));
 
         this.mvc.perform(
                         post(String.format("/booking/car/%s/customer/%s/startDateTime/%s/endDateTime/%s",

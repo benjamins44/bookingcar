@@ -16,6 +16,6 @@ public class BcoCarManager implements CarManager {
 
     @Override
     public Car findById(UUID carId) throws CarNotFoundException {
-        return storeCars.getById(carId).orElseThrow(CarNotFoundException::new);
+        return storeCars.getById(carId).orElseThrow(() -> new CarNotFoundException(carId));
     }
 }

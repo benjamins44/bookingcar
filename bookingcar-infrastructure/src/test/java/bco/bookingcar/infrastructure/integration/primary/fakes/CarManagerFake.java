@@ -11,8 +11,8 @@ public class CarManagerFake implements CarManager {
     private Optional<Car> car = Optional.empty();
 
     @Override
-    public Car findById(UUID customerId) throws CarNotFoundException {
-        return car.orElseThrow(CarNotFoundException::new);
+    public Car findById(UUID carId) throws CarNotFoundException {
+        return car.orElseThrow(() -> new CarNotFoundException(carId));
     }
 
     public void setCar(Car car) {

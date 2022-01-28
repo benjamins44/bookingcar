@@ -19,7 +19,7 @@ public class BcoBookingCar implements BookingCar {
     @Override
     public BookedCar book(Car car, Period period, Customer customer) throws CarNotAvailableException {
         if (carIsBookedOn(car, period)) {
-            throw new CarNotAvailableException();
+            throw new CarNotAvailableException(car.getId());
         }
 
         var newBookedCar = BookedCar.builder()
@@ -32,10 +32,10 @@ public class BcoBookingCar implements BookingCar {
 
         return bookedCar.addEvent(
                 BookedCarCreatedEvent.builder()
-                .car(car)
-                .customer(customer)
-                .period(period)
-                .build());
+                        .car(car)
+                        .customer(customer)
+                        .period(period)
+                        .build());
     }
 
     @Override

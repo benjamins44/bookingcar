@@ -4,14 +4,14 @@ import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.CustomerManager;
-import bco.bookingcar.application.car.CarNotFoundException;
-import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BookedCar;
-import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.exceptions.BusinessException;
+import bco.bookingcar.exceptions.TechnicalException;
+import bco.bookingcar.ports.TransactionManager;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -27,6 +27,7 @@ public class BcoBookingCarManager implements BookingCarManager {
     private CarManager carManager;
     private CustomerManager customerManager;
     private BookingCarEventsDispatcher bookingCarEventsDispatcher;
+    private TransactionManager transactionManager;
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
@@ -42,12 +43,14 @@ public class BcoBookingCarManager implements BookingCarManager {
     }
 
     @Override
-    public BookedCar book(UUID carId, UUID customerId, Period period) throws CarNotAvailableException, CarNotFoundException, CustomerNotFoundException {
+    public BookedCar book(UUID carId, UUID customerId, Period period) throws BusinessException, TechnicalException {
         var car = carManager.findById(carId);
         var customer = customerManager.findById(customerId);
-        var bookedCar = bookingCar.book(car, period, customer);
-        bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
-        return bookedCar;
+        return transactionManager.executeInTransaction(() -> {
+            var bookedCar = bookingCar.book(car, period, customer);
+            bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
+            return bookedCar;
+        });
     }
 }
 

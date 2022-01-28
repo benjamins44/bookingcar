@@ -14,7 +14,7 @@ public class BcoCustomerManager implements CustomerManager {
     private StoreCustomers storeCustomers;
 
     @Override
-    public Customer findById(UUID carId) throws CustomerNotFoundException {
-        return storeCustomers.getById(carId).orElseThrow(CustomerNotFoundException::new);
+    public Customer findById(UUID customerId) throws CustomerNotFoundException {
+        return storeCustomers.getById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 }

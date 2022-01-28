@@ -53,5 +53,12 @@
             <artifactId>bookingcar-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>bco</groupId>
+            <artifactId>bookingcar-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <type>test-jar</type>
+        </dependency>
     </dependencies>
 </project>

@@ -2,6 +2,7 @@ package bco.bookingcar.infrastructure.primary.apicontrollers;
 
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.exceptions.BookingCarException;
+import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.infrastructure.primary.resources.AvailableCarResource;
 import bco.bookingcar.infrastructure.primary.resources.BookedCarResource;
 import bco.bookingcar.infrastructure.primary.resources.PeriodResource;
@@ -41,7 +42,7 @@ public class BookingCarController {
     @PostMapping("/car/{idCar}/customer/{idCustomer}/startDateTime/{startDateTime}/endDateTime/{endDateTime}")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(tags = "Booking", summary = "Book a car for a customer on a period")
-    public ResponseEntity<BookedCarResource> book(@PathVariable UUID idCar, @PathVariable UUID idCustomer, PeriodResource period) throws BookingCarException {
+    public ResponseEntity<BookedCarResource> book(@PathVariable UUID idCar, @PathVariable UUID idCustomer, PeriodResource period) throws BusinessException {
         var bookedCar = BookedCarResource.fromDomain(
                 bookingCarManager.book(idCar, idCustomer, period.toDomain())
         );

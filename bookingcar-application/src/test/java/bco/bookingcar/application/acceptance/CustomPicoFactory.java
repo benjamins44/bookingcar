@@ -8,6 +8,7 @@ import bco.bookingcar.domain.ports.fakes.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreBookedCars;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreCars;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreCustomers;
+import bco.bookingcar.ports.fakes.InMemoryTransactionManager;
 import cucumber.runtime.java.picocontainer.PicoFactory;
 
 public class CustomPicoFactory extends PicoFactory {
@@ -21,6 +22,7 @@ public class CustomPicoFactory extends PicoFactory {
         addClass(InMemoryStoreCars.class);
         addClass(InMemoryStoreBookedCars.class);
         addClass(InMemoryBookingCarEventsDispatcher.class);
+        addClass(InMemoryTransactionManager.class);
     }
 }
 
