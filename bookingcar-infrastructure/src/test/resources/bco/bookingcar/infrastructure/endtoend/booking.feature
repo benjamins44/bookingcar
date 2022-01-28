@@ -11,8 +11,8 @@ Feature: Booking manager
     And match response.id == '#present'
     And match response.idCar == '123e4567-e89b-12d3-a456-426614174000'
     And match response.idCustomer == '123e4567-e89b-12d3-a456-426614174001'
-    And match response.period.startDateTime == '2015-09-22T09:41:06.3839327+02:00'
-    And match response.period.endDateTime == '2015-09-23T09:41:06.3839327+02:00'
+    And match response.period.startDateTime == '2015-09-22T09:41:06.3839327Z'
+    And match response.period.endDateTime == '2015-09-23T09:41:06.3839327Z'
 
   Scenario: can search available cars
 

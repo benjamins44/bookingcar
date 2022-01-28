@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ZonedDateUtils {
     private final static DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-    private final static ZoneId timeZone = ZoneId.systemDefault();
+    private final static ZoneId timeZone = ZoneId.of("Z");
 
     public static ZonedDateTime toZonedDateTime(String strDate) {
         return LocalDateTime.parse(strDate, formatter).atZone(timeZone);
