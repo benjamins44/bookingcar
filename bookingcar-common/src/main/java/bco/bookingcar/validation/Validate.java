@@ -27,7 +27,7 @@ public interface Validate {
         isTrue(id > 0, message);
     }
 
-    static void notNegativeAndNull(BigDecimal id, String message) {
+    static void isNotNegativeAndNotNull(BigDecimal id, String message) {
         if (id == null) {
             throw new NullPointerException();
         }
