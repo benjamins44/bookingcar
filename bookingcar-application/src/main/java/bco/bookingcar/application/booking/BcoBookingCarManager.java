@@ -46,11 +46,11 @@ public class BcoBookingCarManager implements BookingCarManager {
     public BookedCar book(UUID carId, UUID customerId, Period period) throws BusinessException, TechnicalException {
         var car = carManager.findById(carId);
         var customer = customerManager.findById(customerId);
-        return transactionManager.executeInTransaction(() -> {
-            var bookedCar = bookingCar.book(car, period, customer);
-            bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
-            return bookedCar;
-        });
+        var bookedCar = transactionManager.executeInTransaction(() ->
+                bookingCar.book(car, period, customer)
+        );
+        bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
+        return bookedCar;
     }
 }
 
