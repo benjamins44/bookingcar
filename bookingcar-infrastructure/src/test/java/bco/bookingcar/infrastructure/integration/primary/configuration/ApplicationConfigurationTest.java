@@ -10,8 +10,10 @@ import bco.bookingcar.infrastructure.integration.primary.fakes.CustomerManagerFa
 import bco.bookingcar.infrastructure.integration.primary.fakes.PlanningCarManagerFake;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @TestConfiguration
+@ComponentScan("bco.bookingcar.infrastructure.primary.error.status")
 public class ApplicationConfigurationTest {
 
     @Bean

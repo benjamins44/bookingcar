@@ -1,6 +1,7 @@
 package bco.bookingcar.infrastructure.integration.secondary.adapter;
 
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
+import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.exceptions.TechnicalException;
 import bco.bookingcar.infrastructure.integration.secondary.configuration.PostgresqlContainerConfiguration;
 import bco.bookingcar.infrastructure.secondary.adapter.TransactionManagerAdapter;
@@ -35,7 +36,7 @@ public class TransactionManagerAdapterIT {
     }
 
     @Test
-    void persistCustomer_WhenNotDuplicate_ThenShouldCommit() {
+    void persistCustomer_WhenNotDuplicate_ThenShouldCommit() throws BusinessException {
         UUID idCustomer = transactionManagerAdapter.executeInTransaction(() -> {
             var customer = CustomerEntity.fromDomain(CustomerFactory.build());
             entityManager.persist(customer);

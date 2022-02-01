@@ -7,7 +7,7 @@ import bco.bookingcar.application.unit.booking.SearchAvailableCarsCriteriasFacto
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
-import bco.bookingcar.exceptions.BookingCarException;
+import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
 import bco.bookingcar.infrastructure.integration.primary.fakes.BookingCarManagerFake;
 import bco.bookingcar.infrastructure.primary.apicontrollers.BookingCarController;
@@ -130,7 +130,7 @@ public class BookingCarControllerIT {
         ((BookingCarManagerFake) bookingCarManager).setAvailableCars(availableCars);
     }
 
-    private void setBookingCarException(BookingCarException exception) {
+    private void setBookingCarException(BusinessException exception) {
         ((BookingCarManagerFake) bookingCarManager).setException(exception);
     }
 }

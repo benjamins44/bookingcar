@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
@@ -51,12 +52,16 @@ public class CustomerControllerIT {
     }
 
     @Test
-    void receive_bad_request_if_customer_not_found() throws Exception {
+    void receive_not_found_if_customer_not_found() throws Exception {
+        var idCustomer = UUID.randomUUID();
         this.mvc.perform(
-                        get(String.format("/customers/%s", UUID.randomUUID()))
+                        get(String.format("/customers/%s", idCustomer))
                                 .accept(APPLICATION_JSON)
                                 .contentType(APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error.code", is(String.valueOf(HttpStatus.NOT_FOUND.value()))))
+                .andExpect(jsonPath("$.error.message", is(String.format("The customer %s does not exist.", idCustomer))))
+                .andExpect(jsonPath("$.error.errors[0].message", is("error.customer-not-found")));
     }
 
     private void setCustomerToManager(Customer customer) {

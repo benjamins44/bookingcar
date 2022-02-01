@@ -1,8 +1,8 @@
 package bco.bookingcar.domain.unit.shared;
 
 import bco.bookingcar.domain.shared.Period;
-import bco.bookingcar.domain.unit.customer.CustomerFactory;
-
+import bco.bookingcar.domain.shared.StartDateAfterEndDateException;
+import bco.bookingcar.exceptions.MissingMandatoryValueException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,20 +29,20 @@ public class PeriodTest {
         @Test
         @DisplayName("Start date time must not be null")
         void start_date_must_not_be_null() {
-            assertThatThrownBy(() -> PeriodFactory.build().withStartDateTime(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> PeriodFactory.build().withStartDateTime(null)).isInstanceOf(MissingMandatoryValueException.class);
         }
 
         @Test
         @DisplayName("End date time must not be null")
         void end_date_must_not_be_null() {
-            assertThatThrownBy(() -> PeriodFactory.build().withEndDateTime(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> PeriodFactory.build().withEndDateTime(null)).isInstanceOf(MissingMandatoryValueException.class);
         }
 
         @Test
         @DisplayName("End date time must be after start date")
         void end_date_must_be_after_start_date() {
             var date = ZonedDateTime.now();
-            assertThatThrownBy(() -> PeriodFactory.build().withStartDateTime(date).withEndDateTime(date)).isInstanceOf(IllegalArgumentException.class);
+            assertThatThrownBy(() -> PeriodFactory.build().withStartDateTime(date).withEndDateTime(date)).isInstanceOf(StartDateAfterEndDateException.class);
         }
     }
 

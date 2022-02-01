@@ -1,5 +1,6 @@
 package bco.bookingcar.infrastructure.secondary.adapter;
 
+import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.exceptions.TechnicalException;
 import bco.bookingcar.ports.TransactionManager;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class TransactionManagerAdapter implements TransactionManager {
     private final PlatformTransactionManager transactionManager;
 
     @Override
-    public <R> R executeInTransaction(FunctionInTransaction<R> function) throws TechnicalException {
+    public <R> R executeInTransaction(FunctionInTransaction<R> function) throws TechnicalException, BusinessException {
 
         var transactionDefinition = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED);
         transactionDefinition.setTimeout(10);
@@ -24,6 +25,9 @@ public class TransactionManagerAdapter implements TransactionManager {
             var result = function.execute();
             commitTransaction(transactionStatus);
             return result;
+        } catch (BusinessException exception) {
+            rollbackTranscation(transactionStatus);
+            throw exception;
         } catch (Exception exception) {
             rollbackTranscation(transactionStatus);
             throw new TechnicalException(exception);

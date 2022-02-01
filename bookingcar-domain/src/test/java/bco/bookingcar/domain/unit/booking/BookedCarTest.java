@@ -1,5 +1,6 @@
 package bco.bookingcar.domain.unit.booking;
 
+import bco.bookingcar.exceptions.MissingMandatoryValueException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,19 +24,19 @@ public class BookedCarTest {
         @Test
         @DisplayName("Id car must not be null")
         void id_car_must_not_be_null() {
-            assertThatThrownBy(() -> BookedCarFactory.build().withIdCar(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> BookedCarFactory.build().withIdCar(null)).isInstanceOf(MissingMandatoryValueException.class);
         }
 
         @Test
         @DisplayName("Id customer must not be null")
         void id_customer_must_not_be_null() {
-            assertThatThrownBy(() -> BookedCarFactory.build().withIdCustomer(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> BookedCarFactory.build().withIdCustomer(null)).isInstanceOf(MissingMandatoryValueException.class);
         }
 
         @Test
         @DisplayName("Period must not be null")
         void period_must_not_be_null() {
-            assertThatThrownBy(() -> BookedCarFactory.build().withPeriod(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> BookedCarFactory.build().withPeriod(null)).isInstanceOf(MissingMandatoryValueException.class);
         }
     }
 }

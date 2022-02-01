@@ -1,11 +1,15 @@
 package bco.bookingcar.application.customer;
 
-import bco.bookingcar.exceptions.BookingCarException;
+import bco.bookingcar.domain.shared.BookingMessage;
+import bco.bookingcar.exceptions.BusinessException;
 
 import java.util.UUID;
 
-public class CustomerNotFoundException extends BookingCarException {
+public class CustomerNotFoundException extends BusinessException {
     public CustomerNotFoundException(final UUID idCustomer) {
-        super(String.format("The customer with id %s is not found", idCustomer.toString()));
+        super(BusinessException.builder()
+                .message(BookingMessage.CUSTOMER_NOT_FOUND)
+                .argument("idCustomer", idCustomer)
+        );
     }
 }

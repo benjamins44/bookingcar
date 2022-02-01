@@ -2,6 +2,7 @@ package bco.bookingcar.domain.booking;
 
 import bco.bookingcar.annotation.DomainEntity;
 import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.exceptions.BusinessException;
 import lombok.*;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.apache.commons.lang3.Validate.notNull;
+import static bco.bookingcar.validation.Assert.field;
 
 @With
 @Builder
@@ -24,10 +25,11 @@ public class BookedCar {
     private Period period;
     private List<BookedCarCreatedEvent> createdEvents;
 
+    @SneakyThrows({BusinessException.class})
     public BookedCar(UUID id, UUID idCustomer, UUID idCar, Period period, List<BookedCarCreatedEvent> createdEvents) {
-        notNull(idCustomer, "The idCustomer is mandatory");
-        notNull(idCar, "The idCar is mandatory");
-        notNull(period, "The startDate is mandatory");
+        field("idCustomer", idCustomer).notNull();
+        field("idCar", idCar).notNull();
+        field("period", period).notNull();
 
         this.id = id;
         this.idCar = idCar;

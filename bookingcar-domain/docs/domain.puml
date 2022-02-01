@@ -111,6 +111,14 @@ interface bco.bookingcar.domain.ports.StoreCustomers {
 }
 
 
+enum bco.bookingcar.domain.shared.BookingMessage {
+	{field} +CAR_NOT_AVAILABLE
+	{field} +CAR_NOT_FOUND
+	{field} +CUSTOMER_NOT_FOUND
+	{field} +START_DATE_AFTER_END_DATE
+}
+
+
 class bco.bookingcar.domain.shared.Period {
 	{field} -endDateTime : java.time.ZonedDateTime
 	{field} -startDateTime : java.time.ZonedDateTime
@@ -122,6 +130,10 @@ class bco.bookingcar.domain.shared.Period {
 	{method} +toString () : String
 	{method} +withEndDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period
 	{method} +withStartDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period
+}
+
+
+class bco.bookingcar.domain.shared.StartDateAfterEndDateException {
 }
 
 

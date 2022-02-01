@@ -1,11 +1,12 @@
 package bco.bookingcar.domain.shared;
 
 import bco.bookingcar.annotation.ValueObject;
+import bco.bookingcar.exceptions.BusinessException;
 import lombok.*;
 
 import java.time.ZonedDateTime;
 
-import static org.apache.commons.lang3.Validate.notNull;
+import static bco.bookingcar.validation.Assert.field;
 
 @With
 @Builder
@@ -17,11 +18,12 @@ public class Period {
     private ZonedDateTime startDateTime;
     private ZonedDateTime endDateTime;
 
+    @SneakyThrows({BusinessException.class})
     public Period(ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
-        notNull(startDateTime, "The startDateTime is mandatory");
-        notNull(endDateTime, "The endDateTime is mandatory");
+        field("startDateTime", startDateTime).notNull();
+        field("endDateTime", endDateTime).notNull();
         if (!endDateTime.isAfter(startDateTime)) {
-            throw new IllegalArgumentException("End date must be after start date");
+            throw new StartDateAfterEndDateException(startDateTime, endDateTime);
         }
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

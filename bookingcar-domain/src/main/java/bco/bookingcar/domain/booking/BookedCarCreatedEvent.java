@@ -4,13 +4,15 @@ import bco.bookingcar.annotation.DomainEvent;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.exceptions.BusinessException;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import lombok.With;
 
 import java.util.UUID;
 
-import static org.apache.commons.lang3.Validate.notNull;
+import static bco.bookingcar.validation.Assert.field;
 
 @Builder
 @Getter
@@ -22,10 +24,11 @@ public class BookedCarCreatedEvent {
     private Customer customer;
     private Period period;
 
+    @SneakyThrows({BusinessException.class})
     public BookedCarCreatedEvent(UUID id, Car car, Customer customer, Period period) {
-        notNull(customer, "The customer is mandatory");
-        notNull(car, "The car is mandatory");
-        notNull(period, "The startDate is mandatory");
+        field("customer", customer).notNull();
+        field("car", car).notNull();
+        field("period", period).notNull();
 
         this.id = UUID.randomUUID();
         this.car = car;

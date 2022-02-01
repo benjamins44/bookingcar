@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
@@ -53,12 +54,16 @@ public class CarControllerIT {
     }
 
     @Test
-    void receive_bad_request_if_car_not_found() throws Exception {
+    void receive_not_found_status_if_car_not_found() throws Exception {
+        var idCar = UUID.randomUUID();
         this.mvc.perform(
-                        get(String.format("/cars/%s", UUID.randomUUID()))
+                        get(String.format("/cars/%s", idCar))
                                 .accept(APPLICATION_JSON)
                                 .contentType(APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error.code", is(String.valueOf(HttpStatus.NOT_FOUND.value()))))
+                .andExpect(jsonPath("$.error.message", is(String.format("The car %s does not exist.", idCar))))
+                .andExpect(jsonPath("$.error.errors[0].message", is("error.car-not-found")));
     }
 
     private void setCarToManager(Car car) {

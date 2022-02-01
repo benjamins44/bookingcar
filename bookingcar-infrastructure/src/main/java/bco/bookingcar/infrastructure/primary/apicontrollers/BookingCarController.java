@@ -1,7 +1,6 @@
 package bco.bookingcar.infrastructure.primary.apicontrollers;
 
 import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.exceptions.BookingCarException;
 import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.infrastructure.primary.resources.AvailableCarResource;
 import bco.bookingcar.infrastructure.primary.resources.BookedCarResource;
@@ -15,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -49,10 +46,5 @@ public class BookingCarController {
 
         final URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path(String.format("/%s", bookedCar.getId())).build().toUri();
         return ResponseEntity.created(location).body(bookedCar);
-    }
-
-    @ExceptionHandler(BookingCarException.class)
-    private void handleCarNotFoundException(HttpServletResponse response, BookingCarException exception) throws IOException {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
     }
 }

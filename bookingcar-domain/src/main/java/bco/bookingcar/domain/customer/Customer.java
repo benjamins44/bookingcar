@@ -1,11 +1,12 @@
 package bco.bookingcar.domain.customer;
 
 import bco.bookingcar.annotation.DomainEntity;
+import bco.bookingcar.exceptions.BusinessException;
 import lombok.*;
 
 import java.util.UUID;
 
-import static org.apache.commons.lang3.Validate.notEmpty;
+import static bco.bookingcar.validation.Assert.field;
 
 @With
 @Builder
@@ -18,9 +19,10 @@ public class Customer {
     private String firstname;
     private String lastname;
 
+    @SneakyThrows({BusinessException.class})
     public Customer(UUID id, String firstname, String lastname) {
-        notEmpty(firstname, "The firstname is mandatory");
-        notEmpty(lastname, "The lastname is mandatory");
+        field("firstname", firstname).notBlank();
+        field("lastname", lastname).notBlank();
 
         this.id = id;
         this.firstname = firstname;
