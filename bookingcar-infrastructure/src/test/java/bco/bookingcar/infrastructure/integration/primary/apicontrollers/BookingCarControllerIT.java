@@ -9,7 +9,7 @@ import bco.bookingcar.domain.booking.CarNotAvailableException;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 import bco.bookingcar.exceptions.BusinessException;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.integration.primary.fakes.BookingCarManagerFake;
+import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManagerStub;
 import bco.bookingcar.infrastructure.primary.apicontrollers.BookingCarController;
 import bco.bookingcar.utils.ZonedDateUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +41,7 @@ public class BookingCarControllerIT {
 
     @BeforeEach
     void setup() {
-        ((BookingCarManagerFake) bookingCarManager).reset();
+        ((BookingCarManagerStub) bookingCarManager).reset();
     }
 
     @Test
@@ -123,14 +123,14 @@ public class BookingCarControllerIT {
 
 
     private void setBookedCar(BookedCar bookedCar) {
-        ((BookingCarManagerFake) bookingCarManager).setBookedCar(bookedCar);
+        ((BookingCarManagerStub) bookingCarManager).setBookedCar(bookedCar);
     }
 
     private void setAvailableCar(List<AvailableCar> availableCars) {
-        ((BookingCarManagerFake) bookingCarManager).setAvailableCars(availableCars);
+        ((BookingCarManagerStub) bookingCarManager).setAvailableCars(availableCars);
     }
 
     private void setBookingCarException(BusinessException exception) {
-        ((BookingCarManagerFake) bookingCarManager).setException(exception);
+        ((BookingCarManagerStub) bookingCarManager).setException(exception);
     }
 }

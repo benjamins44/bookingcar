@@ -1,5 +1,6 @@
-package bco.bookingcar.infrastructure.integration.primary.fakes;
+package bco.bookingcar.infrastructure.integration.primary.stubs;
 
+import bco.bookingcar.annotation.Stub;
 import bco.bookingcar.application.CustomerManager;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.customer.Customer;
@@ -7,7 +8,8 @@ import bco.bookingcar.domain.customer.Customer;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CustomerManagerFake implements CustomerManager {
+@Stub
+public class CustomerManagerStub implements CustomerManager {
     private Optional<Customer> customer = Optional.empty();
 
     @Override

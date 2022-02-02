@@ -6,7 +6,7 @@ import bco.bookingcar.application.unit.booking.PlanningBookedCarFactory;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.integration.primary.fakes.PlanningCarManagerFake;
+import bco.bookingcar.infrastructure.integration.primary.stubs.PlanningCarManagerStub;
 import bco.bookingcar.infrastructure.primary.apicontrollers.PlanningCarController;
 import bco.bookingcar.utils.ZonedDateUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,6 +93,6 @@ public class PlanningCarControllerIT {
     }
 
     private void setPlanningToManager(List<PlanningCar> plannings) {
-        ((PlanningCarManagerFake) planningCarManager).setPlanning(plannings);
+        ((PlanningCarManagerStub) planningCarManager).setPlanning(plannings);
     }
 }

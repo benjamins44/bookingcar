@@ -1,5 +1,6 @@
-package bco.bookingcar.infrastructure.integration.primary.fakes;
+package bco.bookingcar.infrastructure.integration.primary.stubs;
 
+import bco.bookingcar.annotation.Stub;
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
@@ -10,7 +11,8 @@ import bco.bookingcar.exceptions.BusinessException;
 import java.util.List;
 import java.util.UUID;
 
-public class BookingCarManagerFake implements BookingCarManager {
+@Stub
+public class BookingCarManagerStub implements BookingCarManager {
 
     private List<AvailableCar> availableCars = List.of();
 

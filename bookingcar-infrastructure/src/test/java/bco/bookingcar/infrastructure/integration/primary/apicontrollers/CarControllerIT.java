@@ -4,7 +4,7 @@ import bco.bookingcar.application.CarManager;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.integration.primary.fakes.CarManagerFake;
+import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
 import bco.bookingcar.infrastructure.primary.apicontrollers.CarController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,6 +67,6 @@ public class CarControllerIT {
     }
 
     private void setCarToManager(Car car) {
-        ((CarManagerFake) carManager).setCar(car);
+        ((CarManagerStub) carManager).setCar(car);
     }
 }
