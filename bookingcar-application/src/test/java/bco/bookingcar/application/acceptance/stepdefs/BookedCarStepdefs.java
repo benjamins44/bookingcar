@@ -4,9 +4,8 @@ import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.ports.StoreBookedCars;
-import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.shared.Period;
-import cucumber.api.java8.En;
+import io.cucumber.java8.En;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,7 +20,7 @@ public class BookedCarStepdefs implements En {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ZoneId timeZone = ZoneId.systemDefault();
 
-    public BookedCarStepdefs(StoreBookedCars storeBookedCars, StoreCars storeCars, BookingCarManager bookingCarManager, TestContext testContext) {
+    public BookedCarStepdefs(StoreBookedCars storeBookedCars, BookingCarManager bookingCarManager, TestContext testContext) {
         Given("^The car \"([^\"]*)\" is booked between \"([^\"]*)\" and \"([^\"]*)\"$", (String idCar, String startDate, String endDate) ->
                 storeBookedCars.add(
                         BookedCar.builder()
