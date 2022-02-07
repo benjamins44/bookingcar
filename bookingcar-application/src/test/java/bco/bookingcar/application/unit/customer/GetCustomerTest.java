@@ -1,8 +1,8 @@
 package bco.bookingcar.application.unit.customer;
 
-import bco.bookingcar.application.customer.BcoCustomerManager;
+import bco.bookingcar.application.customer.BcoGetCustomerUseCase;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
-import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
@@ -17,16 +17,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @InjectDomainObjects
-@DisplayName("Customer manager test")
-public class CustomerManagerTest {
+@DisplayName("Get Customer test")
+public class GetCustomerTest {
 
     private StoreCustomers storeCustomers;
-    private CustomerManager customerManager;
+    private GetCustomer getCustomer;
 
     @BeforeEach
     void setup(StoreCustomers storeCustomers) {
         this.storeCustomers = storeCustomers;
-        customerManager = new BcoCustomerManager(storeCustomers);
+        getCustomer = new BcoGetCustomerUseCase(storeCustomers);
     }
 
     @Nested
@@ -36,7 +36,7 @@ public class CustomerManagerTest {
         void find_by_id_must_return_customer() throws CustomerNotFoundException {
             var customer = storeCustomers.add(CustomerFactory.build());
 
-            var customerFound = customerManager.findById(customer.getId());
+            var customerFound = getCustomer.findById(customer.getId());
 
             assertThat(customerFound).isEqualTo(customer);
         }
@@ -45,7 +45,7 @@ public class CustomerManagerTest {
         void find_by_id_shoud_return_exception_if_customer_not_exist() {
             assertThatThrownBy(() -> {
                 var customer = CustomerFactory.build().withId(UUID.randomUUID());
-                var customerFound = customerManager.findById(customer.getId());
+                var customerFound = getCustomer.findById(customer.getId());
             }).isInstanceOf(CustomerNotFoundException.class);
         }
     }

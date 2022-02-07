@@ -1,8 +1,8 @@
-package bco.bookingcar.infrastructure.primary.apicontrollers;
+package bco.bookingcar.infrastructure.primary.customer;
 
-import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.GetCustomerUseCase;
+import bco.bookingcar.application.customer.GetCustomerRequest;
 import bco.bookingcar.exceptions.BusinessException;
-import bco.bookingcar.infrastructure.primary.resources.CustomerResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +19,15 @@ import java.util.UUID;
 @Tag(name = "Customers", description = "Operations available on Customers")
 @Slf4j
 public class CustomerController {
-    private final CustomerManager customerManager;
+    private final GetCustomerUseCase getCustomerUseCase;
+    private final GetCustomerResourcePresenter getCustomerResourcePresenter;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(tags = "Customers", summary = "Read a customer")
     public ResponseEntity<CustomerResource> readAbonne(@PathVariable String id) throws BusinessException {
-        return ResponseEntity.ok(
-                CustomerResource.fromDomain(
-                        customerManager.findById(UUID.fromString(id))
-                )
-        );
+        getCustomerUseCase.execute(GetCustomerRequest.builder().idCustomer(UUID.fromString(id)).build(), getCustomerResourcePresenter);
+        return ResponseEntity.ok(getCustomerResourcePresenter.viewModel());
     }
+
 }

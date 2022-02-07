@@ -2,11 +2,12 @@ package bco.bookingcar.infrastructure;
 
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
-import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.application.booking.BcoBookingCarManager;
 import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.customer.BcoCustomerManager;
+import bco.bookingcar.application.customer.BcoGetCustomerUseCase;
+import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.application.planning.BcoPlanningCarManager;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
@@ -31,8 +32,13 @@ public class ApplicationConfiguration {
     private StoreBookedCars storeBookedCars;
 
     @Bean
-    public CustomerManager customerManager() {
-        return new BcoCustomerManager(storeCustomers);
+    public GetCustomerUseCase getCustomerUseCase() {
+        return new BcoGetCustomerUseCase(storeCustomers);
+    }
+
+    @Bean
+    public GetCustomer getCustomer() {
+        return new BcoGetCustomerUseCase(storeCustomers);
     }
 
     @Bean
@@ -47,6 +53,6 @@ public class ApplicationConfiguration {
 
     @Bean
     public BookingCarManager bookingCarManager(TransactionManager transactionManager, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
-        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, carManager(), customerManager(), bookingCarEventsDispatcher, transactionManager);
+        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, carManager(), getCustomer(), bookingCarEventsDispatcher, transactionManager);
     }
 }

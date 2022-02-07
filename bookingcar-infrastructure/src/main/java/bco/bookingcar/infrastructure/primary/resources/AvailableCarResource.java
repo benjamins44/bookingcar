@@ -1,6 +1,7 @@
 package bco.bookingcar.infrastructure.primary.resources;
 
 import bco.bookingcar.application.booking.AvailableCar;
+import bco.bookingcar.exceptions.BusinessException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -29,7 +30,7 @@ public class AvailableCarResource {
         return availableCars.stream().map(AvailableCarResource::fromDomain).collect(Collectors.toList());
     }
 
-    public AvailableCar toDomain() {
+    public AvailableCar toDomain() throws BusinessException {
         return new AvailableCar(this.getCar().toDomain(), this.getPeriod().toDomain());
     }
 }

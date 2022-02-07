@@ -3,7 +3,7 @@ package bco.bookingcar.application.booking;
 import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
-import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BookedCar;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
@@ -25,7 +25,7 @@ public class BcoBookingCarManager implements BookingCarManager {
     private BookingCar bookingCar;
     private StoreCars storeCars;
     private CarManager carManager;
-    private CustomerManager customerManager;
+    private GetCustomer getCustomer;
     private BookingCarEventsDispatcher bookingCarEventsDispatcher;
     private TransactionManager transactionManager;
 
@@ -45,7 +45,7 @@ public class BcoBookingCarManager implements BookingCarManager {
     @Override
     public BookedCar book(UUID carId, UUID customerId, Period period) throws BusinessException, TechnicalException {
         var car = carManager.findById(carId);
-        var customer = customerManager.findById(customerId);
+        var customer = getCustomer.findById(customerId);
         var bookedCar = transactionManager.executeInTransaction(() ->
                 bookingCar.book(car, period, customer)
         );

@@ -1,11 +1,11 @@
 package bco.bookingcar.infrastructure.integration.primary.apicontrollers;
 
-import bco.bookingcar.application.CustomerManager;
+import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
-import bco.bookingcar.infrastructure.integration.primary.stubs.CustomerManagerStub;
-import bco.bookingcar.infrastructure.primary.apicontrollers.CustomerController;
+import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
+import bco.bookingcar.infrastructure.primary.customer.CustomerController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CustomerControllerIT {
     private MockMvc mvc;
 
     @Autowired
-    private CustomerManager customerManager;
+    private GetCustomerUseCase getCustomerUseCase;
 
     @BeforeEach
     void setup() {
@@ -65,6 +65,6 @@ public class CustomerControllerIT {
     }
 
     private void setCustomerToManager(Customer customer) {
-        ((CustomerManagerStub) customerManager).setCustomer(customer);
+        ((GetCustomerUseCaseStub) getCustomerUseCase).setCustomer(customer);
     }
 }

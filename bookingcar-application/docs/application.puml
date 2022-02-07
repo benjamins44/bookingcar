@@ -1,0 +1,63 @@
+@startuml
+
+class bco.bookingcar.application.booking.BcoBookingCarManager {
+	{field} -storeBookedCar : bco.bookingcar.domain.ports.StoreBookedCar
+	{method} +book ( paramUUID1 : java.util.UUID , paramUUID2 : java.util.UUID , paramPeriod3 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +search ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias ) : java.util.List
+}
+
+
+class bco.bookingcar.application.car.BcoCarManager {
+	{field} -storeCars : bco.bookingcar.domain.ports.StoreCars
+	{method} +findById ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.car.Car
+}
+
+
+class bco.bookingcar.application.car.CarNotFoundException {
+}
+
+
+class bco.bookingcar.application.customer.BcoCustomerManager {
+	{field} -storeCustomers : bco.bookingcar.domain.ports.StoreCustomers
+	{method} +findById ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.customer.Customer
+}
+
+
+class bco.bookingcar.application.customer.CustomerNotFoundException {
+}
+
+
+interface bco.bookingcar.application.primary.BookingCarManager {
+	{method}  {abstract} +book ( paramUUID1 : java.util.UUID , paramUUID2 : java.util.UUID , paramPeriod3 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCar
+	{method}  {abstract} +search ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias ) : java.util.List
+}
+
+
+interface bco.bookingcar.application.primary.CarManager {
+	{method}  {abstract} +findById ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.car.Car
+}
+
+
+interface bco.bookingcar.application.primary.CustomerManager {
+	{method}  {abstract} +findById ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.customer.Customer
+}
+
+
+interface bco.bookingcar.domain.BookingCar {
+	{method}  {abstract} +book ( paramBookingCarAttempt1 : bco.bookingcar.domain.booking.BookingCarAttempt ) : bco.bookingcar.domain.booking.BookedCar
+	{method}  {abstract} +search ( paramSearchAvailableCarsCriterias1 : bco.bookingcar.domain.booking.SearchAvailableCarsCriterias ) : java.util.List
+}
+
+
+
+
+bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.application.primary.CarManager : carManager
+bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.application.primary.CustomerManager : customerManager
+bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.domain.BookingCar : bookingCar
+bco.bookingcar.application.booking.BcoBookingCarManager ..|>  bco.bookingcar.application.primary.BookingCarManager
+bco.bookingcar.application.car.BcoCarManager ..|>  bco.bookingcar.application.primary.CarManager
+bco.bookingcar.application.customer.BcoCustomerManager ..|>  bco.bookingcar.application.primary.CustomerManager
+
+hide methods
+
+@enduml

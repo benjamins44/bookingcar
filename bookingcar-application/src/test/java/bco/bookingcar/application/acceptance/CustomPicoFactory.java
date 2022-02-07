@@ -2,7 +2,7 @@ package bco.bookingcar.application.acceptance;
 
 import bco.bookingcar.application.booking.BcoBookingCarManager;
 import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.customer.BcoCustomerManager;
+import bco.bookingcar.application.customer.BcoGetCustomerUseCase;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.ports.fakes.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreBookedCars;
@@ -20,7 +20,7 @@ public class CustomPicoFactory implements ObjectFactory {
         addClass(BcoBookingCarManager.class);
         addClass(BcoBookingCar.class);
         addClass(BcoCarManager.class);
-        addClass(BcoCustomerManager.class);
+        addClass(BcoGetCustomerUseCase.class);
         addClass(InMemoryStoreCustomers.class);
         addClass(InMemoryStoreCars.class);
         addClass(InMemoryStoreBookedCars.class);

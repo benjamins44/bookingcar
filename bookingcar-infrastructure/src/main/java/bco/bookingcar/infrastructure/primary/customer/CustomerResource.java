@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.resources;
+package bco.bookingcar.infrastructure.primary.customer;
 
 import bco.bookingcar.domain.customer.Customer;
 import io.swagger.v3.oas.annotations.media.Schema;
