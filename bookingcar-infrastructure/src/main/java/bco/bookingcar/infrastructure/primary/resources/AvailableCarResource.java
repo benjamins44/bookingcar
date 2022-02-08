@@ -2,6 +2,7 @@ package bco.bookingcar.infrastructure.primary.resources;
 
 import bco.bookingcar.application.booking.AvailableCar;
 import bco.bookingcar.exceptions.BusinessException;
+import bco.bookingcar.infrastructure.primary.car.CarResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 

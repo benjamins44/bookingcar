@@ -1,11 +1,11 @@
 package bco.bookingcar.infrastructure.integration.primary.apicontrollers;
 
-import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.unit.car.CarFactory;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
 import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
-import bco.bookingcar.infrastructure.primary.apicontrollers.CarController;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CarControllerIT {
     private MockMvc mvc;
 
     @Autowired
-    private CarManager carManager;
+    private GetCarUseCase carManager;
 
     @BeforeEach
     void setup() {

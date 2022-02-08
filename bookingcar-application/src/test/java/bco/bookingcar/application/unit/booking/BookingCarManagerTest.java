@@ -2,8 +2,8 @@ package bco.bookingcar.application.unit.booking;
 
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.booking.BcoBookingCarManager;
-import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.customer.BcoGetCustomerUseCase;
+import bco.bookingcar.application.car.BcoGetCar;
+import bco.bookingcar.application.customer.BcoGetCustomer;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BcoBookingCar;
 import bco.bookingcar.domain.booking.CarNotAvailableException;
@@ -51,7 +51,7 @@ public class BookingCarManagerTest {
         this.storeCustomers = storeCustomers;
         this.bookingCarEventsDispatcher = bookingCarEventsDispatcher;
         BookingCar bookingCar = new BcoBookingCar(storeCars, storeBookedCars);
-        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoCarManager(storeCars), new BcoGetCustomerUseCase(storeCustomers), bookingCarEventsDispatcher, transactionManager);
+        this.bookingCarManager = new BcoBookingCarManager(bookingCar, storeCars, new BcoGetCar(storeCars), new BcoGetCustomer(storeCustomers), bookingCarEventsDispatcher, transactionManager);
     }
 
     @Nested

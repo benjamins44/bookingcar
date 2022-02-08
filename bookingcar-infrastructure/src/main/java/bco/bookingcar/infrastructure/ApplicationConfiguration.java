@@ -5,12 +5,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.application.booking.BcoBookingCarManager;
-import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.customer.BcoGetCustomerUseCase;
+import bco.bookingcar.application.car.BcoGetCar;
+import bco.bookingcar.application.car.GetCar;
+import bco.bookingcar.application.customer.BcoGetCustomer;
 import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.application.planning.BcoPlanningCarManager;
 import bco.bookingcar.domain.booking.BcoBookingCar;
@@ -34,17 +35,22 @@ public class ApplicationConfiguration {
 
     @Bean
     public GetCustomerUseCase getCustomerUseCase() {
-        return new BcoGetCustomerUseCase(storeCustomers);
+        return new BcoGetCustomer(storeCustomers);
     }
 
     @Bean
     public GetCustomer getCustomer() {
-        return new BcoGetCustomerUseCase(storeCustomers);
+        return new BcoGetCustomer(storeCustomers);
     }
 
     @Bean
-    public CarManager carManager() {
-        return new BcoCarManager(storeCars);
+    public GetCarUseCase getCarUseCase() {
+        return new BcoGetCar(storeCars);
+    }
+
+    @Bean
+    public GetCar getCar() {
+        return new BcoGetCar(storeCars);
     }
 
     @Bean
@@ -54,7 +60,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public BookingCarManager bookingCarManager(TransactionManager transactionManager, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
-        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, carManager(), getCustomer(), bookingCarEventsDispatcher,
+        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, getCar(), getCustomer(), bookingCarEventsDispatcher,
                 transactionManager);
     }
 }

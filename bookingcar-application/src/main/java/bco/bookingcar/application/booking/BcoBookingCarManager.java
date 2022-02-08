@@ -1,8 +1,12 @@
 package bco.bookingcar.application.booking;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import bco.bookingcar.annotation.ApplicationService;
 import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.car.GetCar;
 import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.domain.BookingCar;
 import bco.bookingcar.domain.booking.BookedCar;
@@ -14,41 +18,28 @@ import bco.bookingcar.exceptions.TechnicalException;
 import bco.bookingcar.ports.TransactionManager;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 @AllArgsConstructor
 @ApplicationService
 public class BcoBookingCarManager implements BookingCarManager {
 
     private BookingCar bookingCar;
     private StoreCars storeCars;
-    private CarManager carManager;
+    private GetCar carManager;
     private GetCustomer getCustomer;
     private BookingCarEventsDispatcher bookingCarEventsDispatcher;
     private TransactionManager transactionManager;
 
     @Override
     public List<AvailableCar> search(SearchAvailableCarsCriterias criterias) {
-        return storeCars
-                .getAll()
-                .stream()
-                .filter(car -> !bookingCar.carIsBookedOn(car, criterias.getPeriod()))
-                .map(car -> AvailableCar.builder()
-                        .car(car)
-                        .period(criterias.getPeriod())
-                        .build()
-                ).collect(Collectors.toList());
+        return storeCars.getAll().stream().filter(car -> !bookingCar.carIsBookedOn(car, criterias.getPeriod()))
+                .map(car -> AvailableCar.builder().car(car).period(criterias.getPeriod()).build()).collect(Collectors.toList());
     }
 
     @Override
     public BookedCar book(UUID carId, UUID customerId, Period period) throws BusinessException, TechnicalException {
         var car = carManager.findById(carId);
         var customer = getCustomer.findById(customerId);
-        var bookedCar = transactionManager.executeInTransaction(() ->
-                bookingCar.book(car, period, customer)
-        );
+        var bookedCar = transactionManager.executeInTransaction(() -> bookingCar.book(car, period, customer));
         bookingCarEventsDispatcher.dispatch(bookedCar.getCreatedEvents());
         return bookedCar;
     }

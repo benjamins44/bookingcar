@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.resources;
+package bco.bookingcar.infrastructure.primary.car;
 
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.car.CarCategory;

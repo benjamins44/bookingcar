@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.PlanningCarManager;
 import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManagerStub;
@@ -30,7 +30,7 @@ public class ApplicationConfigurationTest {
     }
 
     @Bean
-    public CarManager carManager() {
+    public GetCarUseCase carManager() {
         return new CarManagerStub();
     }
 

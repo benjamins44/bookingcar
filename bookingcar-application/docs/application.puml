@@ -7,7 +7,7 @@ class bco.bookingcar.application.booking.BcoBookingCarManager {
 }
 
 
-class bco.bookingcar.application.car.BcoCarManager {
+class bco.bookingcar.application.car.BcoGetCar {
 	{field} -storeCars : bco.bookingcar.domain.ports.StoreCars
 	{method} +findById ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.car.Car
 }
@@ -55,7 +55,7 @@ bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.appl
 bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.application.primary.CustomerManager : customerManager
 bco.bookingcar.application.booking.BcoBookingCarManager -->  bco.bookingcar.domain.BookingCar : bookingCar
 bco.bookingcar.application.booking.BcoBookingCarManager ..|>  bco.bookingcar.application.primary.BookingCarManager
-bco.bookingcar.application.car.BcoCarManager ..|>  bco.bookingcar.application.primary.CarManager
+bco.bookingcar.application.car.BcoGetCar ..|>  bco.bookingcar.application.primary.CarManager
 bco.bookingcar.application.customer.BcoCustomerManager ..|>  bco.bookingcar.application.primary.CustomerManager
 
 hide methods
