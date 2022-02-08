@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @InjectDomainObjects
 @DisplayName("Get Customer Use Case test")
-public class GetCustomerUseCaseTest implements GetCustomerPresenter<Customer> {
+public class GetCustomerPresenterTest implements GetCustomerPresenter<Customer> {
 
     private StoreCustomers storeCustomers;
     private GetCustomerResponse getCustomerResponse;

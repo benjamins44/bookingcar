@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.GetCustomerUseCase;
-import bco.bookingcar.application.PlanningCarManager;
+import bco.bookingcar.application.GetPlanningCarUseCase;
 import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManagerStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
-import bco.bookingcar.infrastructure.integration.primary.stubs.PlanningCarManagerStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.GetPlanningCarUseCaseStub;
 
 @TestConfiguration
 @ComponentScan(basePackages = "bco.bookingcar.infrastructure.primary", excludeFilters = {
@@ -35,8 +35,8 @@ public class ApplicationConfigurationTest {
     }
 
     @Bean
-    public PlanningCarManager planningCarManager() {
-        return new PlanningCarManagerStub();
+    public GetPlanningCarUseCase planningCarManager() {
+        return new GetPlanningCarUseCaseStub();
     }
 
     @Bean

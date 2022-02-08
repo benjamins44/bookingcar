@@ -10,7 +10,6 @@ import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.car.GetCarPresenter;
 import bco.bookingcar.application.car.GetCarRequest;
 import bco.bookingcar.application.car.GetCarResponse;
-import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
@@ -20,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @InjectDomainObjects
 @DisplayName("Get Car Use Case test")
-public class GetCarUseCaseTest implements GetCarPresenter<Car> {
+public class GetCarPresenterTest implements GetCarPresenter<Car> {
 
     private StoreCars storeCars;
     private GetCarResponse getCarResponse;
