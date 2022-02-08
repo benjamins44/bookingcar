@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @ToString
 @Schema(name = "Customers", description = "A customer can book a car")
-public class CustomerResource extends RepresentationModel<CustomerResource> {
+public class CustomerResource {
 
     @Schema(description = "Customer id", accessMode = Schema.AccessMode.READ_ONLY)
     private UUID id;

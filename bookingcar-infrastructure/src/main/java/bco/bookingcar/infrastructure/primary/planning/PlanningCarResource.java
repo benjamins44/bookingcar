@@ -2,7 +2,6 @@ package bco.bookingcar.infrastructure.primary.planning;
 
 import bco.bookingcar.application.planning.PlanningCar;
 import bco.bookingcar.infrastructure.primary.car.CarResource;
-import bco.bookingcar.infrastructure.primary.resources.PlanningBookedCarResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 

@@ -127,6 +127,8 @@ class bco.bookingcar.domain.shared.Period {
 	{method} +equals ( paramObject1 : Object ) : boolean
 	{method} +hasIntersectionWith ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : boolean
 	{method} +hashCode () : int
+	{method} +nextDay () : bco.bookingcar.domain.shared.Period
+	{method} +previousDay () : bco.bookingcar.domain.shared.Period
 	{method} +toString () : String
 	{method} +withEndDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period
 	{method} +withStartDateTime ( paramZonedDateTime1 : java.time.ZonedDateTime ) : bco.bookingcar.domain.shared.Period

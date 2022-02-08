@@ -1,24 +1,24 @@
 package bco.bookingcar.infrastructure.primary.planning;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import bco.bookingcar.application.planning.GetPlanningCarPresenter;
 import bco.bookingcar.application.planning.GetPlanningCarResponse;
 
 @Component
-public class GetPlanningCarResourcePresenter implements GetPlanningCarPresenter<List<PlanningCarResource>> {
+public class GetPlanningCarResourcePresenter implements GetPlanningCarPresenter<GetPlanningCarResultResource> {
 
-    private List<PlanningCarResource> viewModel;
+    private GetPlanningCarResultResource viewModel;
 
     @Override
     public void present(GetPlanningCarResponse response) {
-        this.viewModel = PlanningCarResource.fromDomain(response.getPlanningCarList());
+        this.viewModel = GetPlanningCarResultResource.builder()
+                .result(PlanningCarResource.fromDomain(response.getPlanningCarList()))
+                .period(response.getSearchPeriod()).build();
     }
 
     @Override
-    public List<PlanningCarResource> viewModel() {
+    public GetPlanningCarResultResource viewModel() {
         return viewModel;
     }
 }

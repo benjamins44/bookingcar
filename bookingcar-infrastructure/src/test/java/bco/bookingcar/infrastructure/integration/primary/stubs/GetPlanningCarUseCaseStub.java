@@ -24,6 +24,7 @@ public class GetPlanningCarUseCaseStub implements GetPlanningCarUseCase {
         presenter.present(
                 GetPlanningCarResponse.builder()
                         .planningCarList(planning)
+                        .searchPeriod(request.getPeriod())
                         .build()
         );
     }

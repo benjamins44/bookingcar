@@ -94,4 +94,14 @@ public class GetPlanningCarTest implements GetPlanningCarPresenter<List<Planning
         assertThat(planningCars.get(0).getPlanningBookedCar().size()).isEqualTo(1);
         assertThat(planningCars.get(1).getPlanningBookedCar().size()).isEqualTo(1);
     }
+
+    @DisplayName("period is in the response")
+    @Test
+    void customer_is_in_response()  {
+        var period = PeriodFactory.build();
+
+        getPlanningCarUseCase.execute(GetPlanningCarRequest.builder().period(period).build(), this);
+
+        assertThat(this.getPlanningCarResponse.getSearchPeriod()).isEqualTo(period);
+    }
 }

@@ -5,7 +5,6 @@ import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
 import bco.bookingcar.infrastructure.integration.primary.configuration.ApplicationConfigurationTest;
 import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
-import bco.bookingcar.infrastructure.primary.customer.CustomerController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

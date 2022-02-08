@@ -25,7 +25,12 @@ public class BcoGetPlanningCar implements GetPlanningCarUseCase {
         var planningCarList = storeCars.getAll().stream()
                 .map(car -> PlanningCar.builder().car(car).planningBookedCar(getPlanningBookedCar(car, request.getPeriod())).build())
                 .collect(Collectors.toList());
-        presenter.present(GetPlanningCarResponse.builder().planningCarList(planningCarList).build());
+        presenter.present(
+                GetPlanningCarResponse.builder()
+                        .planningCarList(planningCarList)
+                        .searchPeriod(request.getPeriod())
+                        .build()
+        );
     }
 
     private List<PlanningBookedCar> getPlanningBookedCar(Car car, Period period) {
