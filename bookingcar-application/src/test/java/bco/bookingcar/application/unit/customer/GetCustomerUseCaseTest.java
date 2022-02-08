@@ -2,6 +2,7 @@ package bco.bookingcar.application.unit.customer;
 
 import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.customer.*;
+import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.customer.CustomerFactory;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @InjectDomainObjects
 @DisplayName("Get Customer Use Case test")
-public class GetCustomerUseCaseTest implements GetCustomerPresenter {
+public class GetCustomerUseCaseTest implements GetCustomerPresenter<Customer> {
 
     private StoreCustomers storeCustomers;
     private GetCustomerResponse getCustomerResponse;
@@ -28,6 +29,11 @@ public class GetCustomerUseCaseTest implements GetCustomerPresenter {
     @Override
     public void present(GetCustomerResponse response) {
         this.getCustomerResponse = response;
+    }
+
+    @Override
+    public Customer viewModel() {
+        return this.getCustomerResponse.getCustomer();
     }
 
     @DisplayName("customer is in the response")

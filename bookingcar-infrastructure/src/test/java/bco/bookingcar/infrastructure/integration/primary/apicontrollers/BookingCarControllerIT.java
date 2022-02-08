@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Import({ApplicationConfigurationTest.class})
-@WebMvcTest(BookingCarController.class)
+@WebMvcTest
 public class BookingCarControllerIT {
     @Autowired
     private MockMvc mvc;

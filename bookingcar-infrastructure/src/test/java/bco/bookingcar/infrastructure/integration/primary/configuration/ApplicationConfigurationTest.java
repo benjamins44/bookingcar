@@ -1,5 +1,13 @@
 package bco.bookingcar.infrastructure.integration.primary.configuration;
 
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.GetCustomerUseCase;
@@ -8,12 +16,12 @@ import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManager
 import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.PlanningCarManagerStub;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 @TestConfiguration
-@ComponentScan("bco.bookingcar.infrastructure.primary.error.status")
+@ComponentScan(basePackages = "bco.bookingcar.infrastructure.primary", excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = ControllerAdvice.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Repository.class) })
 public class ApplicationConfigurationTest {
 
     @Bean

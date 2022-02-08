@@ -1,5 +1,9 @@
 package bco.bookingcar.infrastructure;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import bco.bookingcar.application.BookingCarManager;
 import bco.bookingcar.application.CarManager;
 import bco.bookingcar.application.GetCustomerUseCase;
@@ -15,9 +19,6 @@ import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.ports.StoreCustomers;
 import bco.bookingcar.ports.TransactionManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -53,6 +54,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public BookingCarManager bookingCarManager(TransactionManager transactionManager, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
-        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, carManager(), getCustomer(), bookingCarEventsDispatcher, transactionManager);
+        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, carManager(), getCustomer(), bookingCarEventsDispatcher,
+                transactionManager);
     }
 }
