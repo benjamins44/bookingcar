@@ -26,12 +26,12 @@ public class StoreCarsAdapter implements StoreCars {
 
     @Override
     public List<Car> addAll(List<Car> cars) {
-        return carRepository.saveAll(CarEntity.fromDomain(cars)).stream().map(CarEntity::toDomain).collect(Collectors.toList());
+        return carRepository.saveAll(CarEntity.fromDomain(cars)).stream().map(CarEntity::toDomain).toList();
     }
 
     @Override
     public List<Car> getAll() {
-        return carRepository.findAll().stream().map(CarEntity::toDomain).collect(Collectors.toList());
+        return carRepository.findAll().stream().map(CarEntity::toDomain).toList();
     }
 
     @Override

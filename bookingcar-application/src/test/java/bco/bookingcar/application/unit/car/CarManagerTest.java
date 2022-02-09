@@ -1,8 +1,8 @@
 package bco.bookingcar.application.unit.car;
 
-import bco.bookingcar.application.car.BcoCarManager;
+import bco.bookingcar.application.car.GetCarUseCaseImpl;
 import bco.bookingcar.application.car.CarNotFoundException;
-import bco.bookingcar.application.CarManager;
+import bco.bookingcar.application.car.GetCar;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
 import bco.bookingcar.domain.unit.car.CarFactory;
@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class CarManagerTest {
 
     private StoreCars storeCars;
-    private CarManager carManager;
+    private GetCar carManager;
 
     @BeforeEach
     void setup(StoreCars storeCars) {
         this.storeCars = storeCars;
-        carManager = new BcoCarManager(storeCars);
+        carManager = new GetCarUseCaseImpl(storeCars);
     }
 
     @Nested

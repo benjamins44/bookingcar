@@ -1,10 +1,12 @@
 package bco.bookingcar.application.unit.booking;
 
-import bco.bookingcar.application.booking.SearchAvailableCarsCriterias;
+import java.util.UUID;
+
+import bco.bookingcar.application.booking.SearchAvailableCarsRequest;
 import bco.bookingcar.domain.unit.shared.PeriodFactory;
 
 public interface SearchAvailableCarsCriteriasFactory {
-    static SearchAvailableCarsCriterias build() {
-        return SearchAvailableCarsCriterias.builder().period(PeriodFactory.build()).build();
+    static SearchAvailableCarsRequest build() {
+        return SearchAvailableCarsRequest.builder().customerId(UUID.randomUUID()).period(PeriodFactory.build()).build();
     }
 }

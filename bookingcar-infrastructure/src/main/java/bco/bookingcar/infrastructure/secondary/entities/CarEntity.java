@@ -55,7 +55,7 @@ public class CarEntity implements Serializable {
         );
     }
     public static List<CarEntity> fromDomain(List<Car> cars) {
-        return cars.stream().map(CarEntity::fromDomain).collect(Collectors.toList());
+        return cars.stream().map(CarEntity::fromDomain).toList();
     }
 
     public Car toDomain() {

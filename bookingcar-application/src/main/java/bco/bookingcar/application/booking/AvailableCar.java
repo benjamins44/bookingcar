@@ -3,9 +3,10 @@ package bco.bookingcar.application.booking;
 import bco.bookingcar.annotation.DTO;
 import bco.bookingcar.domain.car.Car;
 import bco.bookingcar.domain.shared.Period;
+import bco.bookingcar.exceptions.BusinessException;
 import lombok.*;
 
-import static org.apache.commons.lang3.Validate.notNull;
+import static bco.bookingcar.validation.Assert.field;
 
 @With
 @Builder
@@ -17,9 +18,10 @@ public class AvailableCar {
     private Car car;
     private Period period;
 
+    @SneakyThrows({BusinessException.class})
     public AvailableCar(Car car, Period period) {
-        notNull(car, "The car is mandatory");
-        notNull(period, "The startDate is mandatory");
+        field("car", car).notNull();
+        field("period", period).notNull();
 
         this.car = car;
         this.period = period;

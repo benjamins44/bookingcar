@@ -1,9 +1,10 @@
 package bco.bookingcar.application.acceptance;
 
-import bco.bookingcar.application.booking.BcoBookingCarManager;
-import bco.bookingcar.application.car.BcoCarManager;
-import bco.bookingcar.application.customer.BcoCustomerManager;
-import bco.bookingcar.domain.booking.BcoBookingCar;
+import bco.bookingcar.application.booking.BookCarUseCaseImpl;
+import bco.bookingcar.application.booking.SearchAvailableCarsUseCaseImpl;
+import bco.bookingcar.application.car.GetCarUseCaseImpl;
+import bco.bookingcar.application.customer.GetCustomerUseCaseImpl;
+import bco.bookingcar.domain.booking.BookingCarImpl;
 import bco.bookingcar.domain.ports.fakes.InMemoryBookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreBookedCars;
 import bco.bookingcar.domain.ports.fakes.InMemoryStoreCars;
@@ -14,13 +15,14 @@ import io.cucumber.picocontainer.PicoFactory;
 
 public class CustomPicoFactory implements ObjectFactory {
 
-    private PicoFactory delegate = new PicoFactory();
+    private final PicoFactory delegate = new PicoFactory();
 
     public CustomPicoFactory() {
-        addClass(BcoBookingCarManager.class);
-        addClass(BcoBookingCar.class);
-        addClass(BcoCarManager.class);
-        addClass(BcoCustomerManager.class);
+        addClass(BookCarUseCaseImpl.class);
+        addClass(SearchAvailableCarsUseCaseImpl.class);
+        addClass(BookingCarImpl.class);
+        addClass(GetCarUseCaseImpl.class);
+        addClass(GetCustomerUseCaseImpl.class);
         addClass(InMemoryStoreCustomers.class);
         addClass(InMemoryStoreCars.class);
         addClass(InMemoryStoreBookedCars.class);

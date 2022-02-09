@@ -24,6 +24,6 @@ public interface StoreBookedCarUtils {
                             return car;
                         }
                 )
-                .collect(Collectors.toList());
+               .toList();
     }
 }

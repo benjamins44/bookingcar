@@ -9,4 +9,4 @@ Feature: Planning manager
     And params { startDateTime: '2016-06-22T09:41:06.3839327+02:00', endDateTime: '2016-06-23T09:41:06.3839327+02:00' }
     When method get
     Then status 200
-    And match response == '#[4]'
+    And match response.result == '#[4]'

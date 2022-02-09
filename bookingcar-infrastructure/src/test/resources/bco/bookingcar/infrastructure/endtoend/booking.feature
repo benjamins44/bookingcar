@@ -17,9 +17,9 @@ Feature: Booking manager
   Scenario: can search available cars
 
     Given path 'booking'
-    And params { startDateTime: '2016-06-22T09:41:06.3839327+02:00', endDateTime: '2016-06-23T09:41:06.3839327+02:00' }
+    And params { startDateTime: '2016-06-22T09:41:06.3839327+02:00', endDateTime: '2016-06-23T09:41:06.3839327+02:00', customerId: '123e4567-e89b-12d3-a456-426614174001' }
     When method get
     Then status 200
-    And match response == '#[2]'
+    And match response.result == '#[2]'
 
 

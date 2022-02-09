@@ -1,38 +1,53 @@
 package bco.bookingcar.infrastructure.integration.primary.configuration;
 
-import bco.bookingcar.application.BookingCarManager;
-import bco.bookingcar.application.CarManager;
-import bco.bookingcar.application.CustomerManager;
-import bco.bookingcar.application.PlanningCarManager;
-import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManagerStub;
-import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
-import bco.bookingcar.infrastructure.integration.primary.stubs.CustomerManagerStub;
-import bco.bookingcar.infrastructure.integration.primary.stubs.PlanningCarManagerStub;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import bco.bookingcar.application.BookCarUseCase;
+import bco.bookingcar.application.GetCarUseCase;
+import bco.bookingcar.application.GetCustomerUseCase;
+import bco.bookingcar.application.GetPlanningCarUseCase;
+import bco.bookingcar.application.SearchAvailableCarsUseCase;
+import bco.bookingcar.infrastructure.integration.primary.stubs.BookCarUseCaseStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.GetPlanningCarUseCaseStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.SearchAvailableCarsUseCaseStub;
 
 @TestConfiguration
-@ComponentScan("bco.bookingcar.infrastructure.primary.error.status")
+@ComponentScan(basePackages = "bco.bookingcar.infrastructure.primary", excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = ControllerAdvice.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Repository.class) })
 public class ApplicationConfigurationTest {
 
     @Bean
-    public CustomerManager customerManager() {
-        return new CustomerManagerStub();
+    public GetCustomerUseCase getCustomerUseCase() {
+        return new GetCustomerUseCaseStub();
     }
 
     @Bean
-    public CarManager carManager() {
+    public GetCarUseCase getCarUseCase() {
         return new CarManagerStub();
     }
 
     @Bean
-    public PlanningCarManager planningCarManager() {
-        return new PlanningCarManagerStub();
+    public GetPlanningCarUseCase getPlanningCarUseCase() {
+        return new GetPlanningCarUseCaseStub();
     }
 
     @Bean
-    public BookingCarManager bookingCarManager() {
-        return new BookingCarManagerStub();
+    public BookCarUseCase bookCarUseCase() {
+        return new BookCarUseCaseStub();
+    }
+
+    @Bean
+    public SearchAvailableCarsUseCase searchAvailableCarsUseCase() {
+        return new SearchAvailableCarsUseCaseStub();
     }
 }

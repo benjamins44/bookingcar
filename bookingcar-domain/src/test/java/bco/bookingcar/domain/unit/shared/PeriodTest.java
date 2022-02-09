@@ -100,4 +100,33 @@ public class PeriodTest {
             assertThat(period1.hasIntersectionWith(period2)).isTrue();
         }
     }
+
+    @Nested
+    @DisplayName("next day")
+    class NextDayTest {
+        @Test
+        void next_day_add_one_day_to_start_and_end_date() {
+            var period = PeriodFactory.build();
+
+            var nextPeriod = period.nextDay();
+
+            assertThat(nextPeriod.getStartDateTime()).isEqualTo(period.getStartDateTime().plusDays(1L));
+            assertThat(nextPeriod.getEndDateTime()).isEqualTo(period.getEndDateTime().plusDays(1L));
+        }
+    }
+
+    @Nested
+    @DisplayName("previous day")
+    class PreviousDayTest {
+        @Test
+        void previous_day_remove_one_day_to_start_and_end_date() {
+            var period = PeriodFactory.build();
+
+            var nextPeriod = period.previousDay();
+
+            assertThat(nextPeriod.getStartDateTime()).isEqualTo(period.getStartDateTime().minusDays(1L));
+            assertThat(nextPeriod.getEndDateTime()).isEqualTo(period.getEndDateTime().minusDays(1L));
+        }
+    }
 }
+

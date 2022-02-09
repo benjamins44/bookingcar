@@ -37,4 +37,18 @@ public class Period {
                 (this.getStartDateTime().isBefore(period.getEndDateTime()) &&
                         this.getEndDateTime().isAfter(period.getEndDateTime()));
     }
+
+    public Period nextDay() {
+        return Period.builder()
+                .startDateTime(this.getStartDateTime().plusDays(1L))
+                .endDateTime(this.getEndDateTime().plusDays(1L))
+                .build();
+    }
+
+    public Period previousDay() {
+        return Period.builder()
+                .startDateTime(this.getStartDateTime().minusDays(1L))
+                .endDateTime(this.getEndDateTime().minusDays(1L))
+                .build();
+    }
 }
