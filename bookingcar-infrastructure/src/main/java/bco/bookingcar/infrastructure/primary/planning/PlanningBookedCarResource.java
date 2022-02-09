@@ -2,7 +2,7 @@ package bco.bookingcar.infrastructure.primary.planning;
 
 import bco.bookingcar.application.planning.PlanningBookedCar;
 import bco.bookingcar.infrastructure.primary.customer.CustomerResource;
-import bco.bookingcar.infrastructure.primary.resources.PeriodResource;
+import bco.bookingcar.infrastructure.primary.shared.PeriodResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Schema(name = "Planning Booked Car", description = "A booked car")
 public class PlanningBookedCarResource {
@@ -31,6 +32,6 @@ public class PlanningBookedCarResource {
     }
 
     public static List<PlanningBookedCarResource> fromDomain(List<PlanningBookedCar> planningBookedCars) {
-        return planningBookedCars.stream().map(PlanningBookedCarResource::fromDomain).collect(Collectors.toList());
+        return planningBookedCars.stream().map(PlanningBookedCarResource::fromDomain).toList();
     }
 }

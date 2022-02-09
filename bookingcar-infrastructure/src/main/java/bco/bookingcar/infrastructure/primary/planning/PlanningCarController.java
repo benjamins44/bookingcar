@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import bco.bookingcar.application.GetPlanningCarUseCase;
 import bco.bookingcar.application.planning.GetPlanningCarPresenter;
 import bco.bookingcar.application.planning.GetPlanningCarRequest;
-import bco.bookingcar.infrastructure.primary.resources.PeriodResource;
+import bco.bookingcar.infrastructure.primary.shared.PeriodResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @DomainService
-public class BcoBookingCar implements BookingCar {
+public class BookingCarImpl implements BookingCar {
 
     private StoreCars storeCars;
     private StoreBookedCars storeBookedCars;

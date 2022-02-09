@@ -6,12 +6,6 @@ interface bco.bookingcar.domain.BookingCar {
 }
 
 
-class bco.bookingcar.domain.booking.BcoBookingCar {
-	{method} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
-	{method} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
-}
-
-
 class bco.bookingcar.domain.booking.BookedCar {
 	{field} -id : java.util.UUID
 	{field} -idCar : java.util.UUID
@@ -37,6 +31,12 @@ class bco.bookingcar.domain.booking.BookedCarCreatedEvent {
 	{method} +withCustomer ( paramCustomer1 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
 	{method} +withId ( paramUUID1 : java.util.UUID ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
 	{method} +withPeriod ( paramPeriod1 : bco.bookingcar.domain.shared.Period ) : bco.bookingcar.domain.booking.BookedCarCreatedEvent
+}
+
+
+class bco.bookingcar.domain.booking.BookingCarImpl {
+	{method} +book ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period , paramCustomer3 : bco.bookingcar.domain.customer.Customer ) : bco.bookingcar.domain.booking.BookedCar
+	{method} +carIsBookedOn ( paramCar1 : bco.bookingcar.domain.car.Car , paramPeriod2 : bco.bookingcar.domain.shared.Period ) : boolean
 }
 
 
@@ -141,14 +141,14 @@ class bco.bookingcar.domain.shared.StartDateAfterEndDateException {
 
 
 
-bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreBookedCars : storeBookedCars
-bco.bookingcar.domain.booking.BcoBookingCar -->  bco.bookingcar.domain.ports.StoreCars : storeCars
-bco.bookingcar.domain.booking.BcoBookingCar ..|>  bco.bookingcar.domain.BookingCar
 bco.bookingcar.domain.booking.BookedCar "1" o-- "0..*"  bco.bookingcar.domain.booking.BookedCarCreatedEvent : createdEvents
 bco.bookingcar.domain.booking.BookedCar -->  bco.bookingcar.domain.shared.Period : period
 bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.car.Car : car
 bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.customer.Customer : customer
 bco.bookingcar.domain.booking.BookedCarCreatedEvent -->  bco.bookingcar.domain.shared.Period : period
+bco.bookingcar.domain.booking.BookingCarImpl -->  bco.bookingcar.domain.ports.StoreBookedCars : storeBookedCars
+bco.bookingcar.domain.booking.BookingCarImpl -->  bco.bookingcar.domain.ports.StoreCars : storeCars
+bco.bookingcar.domain.booking.BookingCarImpl ..|>  bco.bookingcar.domain.BookingCar
 bco.bookingcar.domain.car.Car -->  bco.bookingcar.domain.car.CarCategory : category
 
 hide methods

@@ -1,33 +1,35 @@
-package bco.bookingcar.application.planning;
+package bco.bookingcar.application.booking;
+
+import java.util.UUID;
 
 import bco.bookingcar.annotation.DTO;
-import bco.bookingcar.domain.customer.Customer;
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.exceptions.BusinessException;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.ToString;
 import lombok.With;
 
 import static bco.bookingcar.validation.Assert.field;
-import static org.apache.commons.lang3.Validate.notNull;
 
 @With
 @Builder
 @Getter
 @ToString
+@EqualsAndHashCode
 @DTO
-public class PlanningBookedCar {
-    private Customer customer;
+public class SearchAvailableCarsRequest {
     private Period period;
+    private UUID customerId;
 
-    @SneakyThrows({ BusinessException.class})
-    public PlanningBookedCar(Customer customer, Period period) {
-        field("customer", customer).notNull();
+    @SneakyThrows({ BusinessException.class })
+    public SearchAvailableCarsRequest(Period period, UUID customerId) {
         field("period", period).notNull();
+        field("customerId", customerId).notNull();
 
-        this.customer = customer;
         this.period = period;
+        this.customerId = customerId;
     }
 }

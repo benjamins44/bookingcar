@@ -40,7 +40,7 @@ public class BookedCar {
 
     public BookedCar addEvent(final BookedCarCreatedEvent event) {
         return this.withCreatedEvents(
-                Stream.concat(createdEvents.stream(), List.of(event).stream()).collect(Collectors.toList())
+                Stream.concat(createdEvents.stream(), List.of(event).stream()).toList()
         );
     }
 }

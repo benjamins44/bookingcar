@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import bco.bookingcar.application.GetPlanningCarUseCase;
-import bco.bookingcar.application.planning.BcoGetPlanningCar;
+import bco.bookingcar.application.planning.GetPlanningCarUseCaseImpl;
 import bco.bookingcar.application.planning.GetPlanningCarPresenter;
 import bco.bookingcar.application.planning.GetPlanningCarRequest;
 import bco.bookingcar.application.planning.GetPlanningCarResponse;
@@ -46,7 +46,7 @@ public class GetPlanningCarTest implements GetPlanningCarPresenter<List<Planning
     void setup(StoreCars storeCars, StoreBookedCars storeBookedCars, StoreCustomers storeCustomers) {
         this.storeCars = storeCars;
         this.storeBookedCars = storeBookedCars;
-        getPlanningCarUseCase = new BcoGetPlanningCar(storeCars, storeBookedCars, storeCustomers);
+        getPlanningCarUseCase = new GetPlanningCarUseCaseImpl(storeCars, storeBookedCars, storeCustomers);
     }
 
     @Test
@@ -55,10 +55,9 @@ public class GetPlanningCarTest implements GetPlanningCarPresenter<List<Planning
         storeCars.addAll(CarFactory.buildCars(nbOfCars));
 
         getPlanningCarUseCase.execute(GetPlanningCarRequest.builder().period(PeriodFactory.build()).build(), this);
-        var planningCars = getPlanningCarResponse.getPlanningCarList();
 
-        assertThat(planningCars.size()).isEqualTo(1);
-        assertThat(planningCars.get(0).getPlanningBookedCar().isEmpty()).isTrue();
+        assertThat(viewModel().size()).isEqualTo(1);
+        assertThat(viewModel().get(0).getPlanningBookedCar().isEmpty()).isTrue();
     }
 
     @Test
@@ -71,10 +70,9 @@ public class GetPlanningCarTest implements GetPlanningCarPresenter<List<Planning
                 storeBookedCars);
 
         getPlanningCarUseCase.execute(GetPlanningCarRequest.builder().period(period).build(), this);
-        var planningCars = getPlanningCarResponse.getPlanningCarList();
 
-        assertThat(planningCars.size()).isEqualTo(1);
-        assertThat(planningCars.get(0).getPlanningBookedCar().size()).isEqualTo(1);
+        assertThat(viewModel().size()).isEqualTo(1);
+        assertThat(viewModel().get(0).getPlanningBookedCar().size()).isEqualTo(1);
     }
 
     @Test
@@ -88,16 +86,15 @@ public class GetPlanningCarTest implements GetPlanningCarPresenter<List<Planning
                 storeBookedCars);
 
         getPlanningCarUseCase.execute(GetPlanningCarRequest.builder().period(period).build(), this);
-        var planningCars = getPlanningCarResponse.getPlanningCarList();
 
-        assertThat(planningCars.size()).isEqualTo(2);
-        assertThat(planningCars.get(0).getPlanningBookedCar().size()).isEqualTo(1);
-        assertThat(planningCars.get(1).getPlanningBookedCar().size()).isEqualTo(1);
+        assertThat(viewModel().size()).isEqualTo(2);
+        assertThat(viewModel().get(0).getPlanningBookedCar().size()).isEqualTo(1);
+        assertThat(viewModel().get(1).getPlanningBookedCar().size()).isEqualTo(1);
     }
 
     @DisplayName("period is in the response")
     @Test
-    void customer_is_in_response()  {
+    void customer_is_in_response() {
         var period = PeriodFactory.build();
 
         getPlanningCarUseCase.execute(GetPlanningCarRequest.builder().period(period).build(), this);

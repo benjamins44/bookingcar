@@ -4,17 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import bco.bookingcar.application.BookingCarManager;
+import bco.bookingcar.application.BookCarUseCase;
 import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.GetPlanningCarUseCase;
-import bco.bookingcar.application.booking.BcoBookingCarManager;
-import bco.bookingcar.application.car.BcoGetCar;
+import bco.bookingcar.application.SearchAvailableCarsUseCase;
+import bco.bookingcar.application.booking.BookCarUseCaseImpl;
+import bco.bookingcar.application.booking.SearchAvailableCarsUseCaseImpl;
+import bco.bookingcar.application.car.GetCarUseCaseImpl;
 import bco.bookingcar.application.car.GetCar;
-import bco.bookingcar.application.customer.BcoGetCustomer;
+import bco.bookingcar.application.customer.GetCustomerUseCaseImpl;
 import bco.bookingcar.application.customer.GetCustomer;
-import bco.bookingcar.application.planning.BcoGetPlanningCar;
-import bco.bookingcar.domain.booking.BcoBookingCar;
+import bco.bookingcar.application.planning.GetPlanningCarUseCaseImpl;
+import bco.bookingcar.domain.booking.BookingCarImpl;
 import bco.bookingcar.domain.ports.BookingCarEventsDispatcher;
 import bco.bookingcar.domain.ports.StoreBookedCars;
 import bco.bookingcar.domain.ports.StoreCars;
@@ -35,32 +37,38 @@ public class ApplicationConfiguration {
 
     @Bean
     public GetCustomerUseCase getCustomerUseCase() {
-        return new BcoGetCustomer(storeCustomers);
+        return new GetCustomerUseCaseImpl(storeCustomers);
     }
 
     @Bean
     public GetCustomer getCustomer() {
-        return new BcoGetCustomer(storeCustomers);
+        return new GetCustomerUseCaseImpl(storeCustomers);
     }
 
     @Bean
     public GetCarUseCase getCarUseCase() {
-        return new BcoGetCar(storeCars);
+        return new GetCarUseCaseImpl(storeCars);
     }
 
     @Bean
     public GetCar getCar() {
-        return new BcoGetCar(storeCars);
+        return new GetCarUseCaseImpl(storeCars);
     }
 
     @Bean
     public GetPlanningCarUseCase getPlanningCarUseCase() {
-        return new BcoGetPlanningCar(storeCars, storeBookedCars, storeCustomers);
+        return new GetPlanningCarUseCaseImpl(storeCars, storeBookedCars, storeCustomers);
     }
 
     @Bean
-    public BookingCarManager bookingCarManager(TransactionManager transactionManager, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
-        return new BcoBookingCarManager(new BcoBookingCar(storeCars, storeBookedCars), storeCars, getCar(), getCustomer(), bookingCarEventsDispatcher,
+    public BookCarUseCase bookCarUseCase(TransactionManager transactionManager, BookingCarEventsDispatcher bookingCarEventsDispatcher) {
+        return new BookCarUseCaseImpl(new BookingCarImpl(storeCars, storeBookedCars), getCar(), getCustomer(), bookingCarEventsDispatcher,
                 transactionManager);
     }
+
+    @Bean
+    public SearchAvailableCarsUseCase searchAvailableCarsUseCase() {
+        return new SearchAvailableCarsUseCaseImpl(new BookingCarImpl(storeCars, storeBookedCars), storeCars);
+    }
+
 }

@@ -25,7 +25,7 @@ public class InMemoryStoreCars implements StoreCars {
 
     @Override
     public List<Car> addAll(List<Car> buildCars) {
-        return buildCars.stream().map(this::add).collect(Collectors.toList());
+        return buildCars.stream().map(this::add).toList();
     }
 
     @Override

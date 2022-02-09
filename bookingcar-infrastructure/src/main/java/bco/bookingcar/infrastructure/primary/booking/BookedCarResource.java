@@ -1,6 +1,7 @@
-package bco.bookingcar.infrastructure.primary.resources;
+package bco.bookingcar.infrastructure.primary.booking;
 
 import bco.bookingcar.domain.booking.BookedCar;
+import bco.bookingcar.infrastructure.primary.shared.PeriodResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode
 @Schema(name = "Booked Car", description = "A booked car")
 public class BookedCarResource {
     @Schema(description = "Id")

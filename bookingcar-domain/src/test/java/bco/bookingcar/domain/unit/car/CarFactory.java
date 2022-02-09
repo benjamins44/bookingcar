@@ -18,6 +18,6 @@ public interface CarFactory {
     }
 
     static List<Car> buildCars(int nb) {
-        return IntStream.range(0, nb).mapToObj(i -> build()).collect(Collectors.toList());
+        return IntStream.range(0, nb).mapToObj(i -> build()).toList();
     }
 }

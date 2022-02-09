@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import bco.bookingcar.application.GetCarUseCase;
-import bco.bookingcar.application.car.BcoGetCar;
+import bco.bookingcar.application.car.GetCarUseCaseImpl;
 import bco.bookingcar.application.car.CarNotFoundException;
 import bco.bookingcar.application.car.GetCarPresenter;
 import bco.bookingcar.application.car.GetCarRequest;
@@ -28,7 +28,7 @@ public class GetCarPresenterTest implements GetCarPresenter<Car> {
     @BeforeEach
     void setup(StoreCars storeCars) {
         this.storeCars = storeCars;
-        this.getCarUseCase = new BcoGetCar(storeCars);
+        this.getCarUseCase = new GetCarUseCaseImpl(storeCars);
     }
 
     @Override

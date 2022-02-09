@@ -9,7 +9,7 @@ import bco.bookingcar.exceptions.BusinessException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayName("GetPlanningCarRequest invariant tests")
-class GetPlanningCarUseCaseRequestTest {
+class GetPlanningCarRequestTest {
     @Test
     @DisplayName("period must not be null")
     void period_must_not_be_null() {

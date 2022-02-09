@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @ApplicationService
-public class BcoGetCustomer implements GetCustomerUseCase, GetCustomer {
+public class GetCustomerUseCaseImpl implements GetCustomerUseCase, GetCustomer {
     private StoreCustomers storeCustomers;
 
     @Override

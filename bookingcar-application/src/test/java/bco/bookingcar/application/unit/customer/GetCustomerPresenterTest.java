@@ -23,7 +23,7 @@ public class GetCustomerPresenterTest implements GetCustomerPresenter<Customer> 
     @BeforeEach
     void setup(StoreCustomers storeCustomers) {
         this.storeCustomers = storeCustomers;
-        this.getCustomerUseCase = new BcoGetCustomer(storeCustomers);
+        this.getCustomerUseCase = new GetCustomerUseCaseImpl(storeCustomers);
     }
 
     @Override

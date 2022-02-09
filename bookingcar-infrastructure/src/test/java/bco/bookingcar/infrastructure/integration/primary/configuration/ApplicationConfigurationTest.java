@@ -8,14 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import bco.bookingcar.application.BookingCarManager;
+import bco.bookingcar.application.BookCarUseCase;
 import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.GetCustomerUseCase;
 import bco.bookingcar.application.GetPlanningCarUseCase;
-import bco.bookingcar.infrastructure.integration.primary.stubs.BookingCarManagerStub;
+import bco.bookingcar.application.SearchAvailableCarsUseCase;
+import bco.bookingcar.infrastructure.integration.primary.stubs.BookCarUseCaseStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.CarManagerStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.GetCustomerUseCaseStub;
 import bco.bookingcar.infrastructure.integration.primary.stubs.GetPlanningCarUseCaseStub;
+import bco.bookingcar.infrastructure.integration.primary.stubs.SearchAvailableCarsUseCaseStub;
 
 @TestConfiguration
 @ComponentScan(basePackages = "bco.bookingcar.infrastructure.primary", excludeFilters = {
@@ -25,22 +27,27 @@ import bco.bookingcar.infrastructure.integration.primary.stubs.GetPlanningCarUse
 public class ApplicationConfigurationTest {
 
     @Bean
-    public GetCustomerUseCase customerManager() {
+    public GetCustomerUseCase getCustomerUseCase() {
         return new GetCustomerUseCaseStub();
     }
 
     @Bean
-    public GetCarUseCase carManager() {
+    public GetCarUseCase getCarUseCase() {
         return new CarManagerStub();
     }
 
     @Bean
-    public GetPlanningCarUseCase planningCarManager() {
+    public GetPlanningCarUseCase getPlanningCarUseCase() {
         return new GetPlanningCarUseCaseStub();
     }
 
     @Bean
-    public BookingCarManager bookingCarManager() {
-        return new BookingCarManagerStub();
+    public BookCarUseCase bookCarUseCase() {
+        return new BookCarUseCaseStub();
+    }
+
+    @Bean
+    public SearchAvailableCarsUseCase searchAvailableCarsUseCase() {
+        return new SearchAvailableCarsUseCaseStub();
     }
 }

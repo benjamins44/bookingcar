@@ -3,6 +3,7 @@ package bco.bookingcar.infrastructure.primary.customer;
 import bco.bookingcar.domain.customer.Customer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.With;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @ToString
+@EqualsAndHashCode
 @Schema(name = "Customers", description = "A customer can book a car")
 public class CustomerResource {
 

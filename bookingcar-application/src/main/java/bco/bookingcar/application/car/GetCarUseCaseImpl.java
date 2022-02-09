@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @ApplicationService
-public class BcoGetCar implements GetCarUseCase, GetCar {
+public class GetCarUseCaseImpl implements GetCarUseCase, GetCar {
 
     private StoreCars storeCars;
 

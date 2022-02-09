@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Schema(name = "Planning", description = "A planning of a car")
 public class PlanningCarResource {
@@ -30,6 +31,6 @@ public class PlanningCarResource {
     }
 
     public static List<PlanningCarResource> fromDomain(List<PlanningCar> planningCars) {
-        return planningCars.stream().map(PlanningCarResource::fromDomain).collect(Collectors.toList());
+        return planningCars.stream().map(PlanningCarResource::fromDomain).toList();
     }
 }

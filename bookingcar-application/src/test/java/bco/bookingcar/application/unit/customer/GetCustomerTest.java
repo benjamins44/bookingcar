@@ -1,6 +1,6 @@
 package bco.bookingcar.application.unit.customer;
 
-import bco.bookingcar.application.customer.BcoGetCustomer;
+import bco.bookingcar.application.customer.GetCustomerUseCaseImpl;
 import bco.bookingcar.application.customer.CustomerNotFoundException;
 import bco.bookingcar.application.customer.GetCustomer;
 import bco.bookingcar.domain.ports.StoreCustomers;
@@ -26,7 +26,7 @@ public class GetCustomerTest {
     @BeforeEach
     void setup(StoreCustomers storeCustomers) {
         this.storeCustomers = storeCustomers;
-        getCustomer = new BcoGetCustomer(storeCustomers);
+        getCustomer = new GetCustomerUseCaseImpl(storeCustomers);
     }
 
     @Nested

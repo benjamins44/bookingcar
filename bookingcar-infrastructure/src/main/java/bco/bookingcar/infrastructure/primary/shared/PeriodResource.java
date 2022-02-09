@@ -1,4 +1,4 @@
-package bco.bookingcar.infrastructure.primary.resources;
+package bco.bookingcar.infrastructure.primary.shared;
 
 import bco.bookingcar.domain.shared.Period;
 import bco.bookingcar.utils.ZonedDateUtils;
@@ -12,6 +12,7 @@ import static bco.bookingcar.utils.ZonedDateUtils.toZonedDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Schema(name = "Period", description = "A period")
 public class PeriodResource {

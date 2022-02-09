@@ -29,7 +29,7 @@ public class StoreBookedCarsAdapter implements StoreBookedCars {
         return bookedCarRepository.findBookedCarEntityByStartDateTimeIsLessThanEqualAndEndDateTimeGreaterThanEqual(
                 period.getEndDateTime(),
                 period.getStartDateTime()
-        ).stream().map(BookedCarEntity::toDomain).collect(Collectors.toList());
+        ).stream().map(BookedCarEntity::toDomain).toList();
     }
 
     @Override
@@ -38,6 +38,6 @@ public class StoreBookedCarsAdapter implements StoreBookedCars {
                 period.getEndDateTime(),
                 period.getStartDateTime(),
                 car.getId()
-        ).stream().map(BookedCarEntity::toDomain).collect(Collectors.toList());
+        ).stream().map(BookedCarEntity::toDomain).toList();
     }
 }

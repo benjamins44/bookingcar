@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Schema(name = "Cars", description = "A beautiful car")
 public class CarResource {
@@ -43,7 +44,7 @@ public class CarResource {
     }
 
     public static List<CarResource> fromDomain(List<Car> cars) {
-        return cars.stream().map(CarResource::fromDomain).collect(Collectors.toList());
+        return cars.stream().map(CarResource::fromDomain).toList();
     }
 
     public Car toDomain() {

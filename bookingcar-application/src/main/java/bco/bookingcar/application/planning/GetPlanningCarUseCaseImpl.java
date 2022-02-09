@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @ApplicationService
-public class BcoGetPlanningCar implements GetPlanningCarUseCase {
+public class GetPlanningCarUseCaseImpl implements GetPlanningCarUseCase {
     private StoreCars storeCars;
     private StoreBookedCars storeBookedCars;
     private StoreCustomers storeCustomers;
@@ -24,7 +24,7 @@ public class BcoGetPlanningCar implements GetPlanningCarUseCase {
     public void execute(GetPlanningCarRequest request, GetPlanningCarPresenter presenter) {
         var planningCarList = storeCars.getAll().stream()
                 .map(car -> PlanningCar.builder().car(car).planningBookedCar(getPlanningBookedCar(car, request.getPeriod())).build())
-                .collect(Collectors.toList());
+               .toList();
         presenter.present(
                 GetPlanningCarResponse.builder()
                         .planningCarList(planningCarList)
@@ -36,7 +36,7 @@ public class BcoGetPlanningCar implements GetPlanningCarUseCase {
     private List<PlanningBookedCar> getPlanningBookedCar(Car car, Period period) {
         return storeBookedCars.getBookedCarByCarAndPeriod(car, period).stream().map(bookedCar -> PlanningBookedCar.builder().period(bookedCar.getPeriod())
                 .customer(storeCustomers.getById(bookedCar.getIdCustomer()).orElse(Customer.builder().firstname("Unknown").lastname("Customer").build()))
-                .build()).collect(Collectors.toList());
+                .build()).toList();
     }
 
 }

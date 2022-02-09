@@ -1,8 +1,7 @@
 package bco.bookingcar.application.unit.car;
 
-import bco.bookingcar.application.car.BcoGetCar;
+import bco.bookingcar.application.car.GetCarUseCaseImpl;
 import bco.bookingcar.application.car.CarNotFoundException;
-import bco.bookingcar.application.GetCarUseCase;
 import bco.bookingcar.application.car.GetCar;
 import bco.bookingcar.domain.ports.StoreCars;
 import bco.bookingcar.domain.unit.InjectDomainObjects;
@@ -27,7 +26,7 @@ public class CarManagerTest {
     @BeforeEach
     void setup(StoreCars storeCars) {
         this.storeCars = storeCars;
-        carManager = new BcoGetCar(storeCars);
+        carManager = new GetCarUseCaseImpl(storeCars);
     }
 
     @Nested
